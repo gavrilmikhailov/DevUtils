@@ -36,20 +36,22 @@ struct HomeControlsRootView: View {
             Button {
                 delegate?.selectTab(at: viewModel.index)
             } label: {
-                HStack {
-                    Image(nsImage: viewModel.icon)
-                        .frame(width: 12, height: 12, alignment: .center)
-                    Text(viewModel.title)
-                        .font(Font.system(size: 12))
-                        .fontWeight(.regular)
-                    Spacer()
+                Group {
+                    HStack {
+                        Image(nsImage: viewModel.icon)
+                            .frame(width: 12, height: 12, alignment: .center)
+                        Text(viewModel.title)
+                            .font(Font.system(size: 12))
+                            .fontWeight(.regular)
+                        Spacer()
+                    }
+                    .padding(EdgeInsets(top: 6, leading: 8, bottom: 6, trailing: 8))
                 }
+                .frame(maxWidth: .infinity)
+                .background(viewState.selectedRowIndex == viewModel.index ? Color.accentColor : Color.clear)
+                .cornerRadius(6, antialiased: true)
                 .contentShape(Rectangle())
             }
-            .frame(maxWidth: .infinity)
-            .padding(EdgeInsets(top: 6, leading: 8, bottom: 6, trailing: 8))
-            .background(viewState.selectedRowIndex == viewModel.index ? Color.accentColor : Color.clear)
-            .cornerRadius(6, antialiased: true)
             .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
         }
         .buttonStyle(.plain)

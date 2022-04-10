@@ -15,8 +15,27 @@ final class ViewController: NSViewController {
     
     override func loadView() {
         view = NSView(frame: .zero)
-        view.wantsLayer = true
-        view.layer?.backgroundColor = NSColor.green.cgColor
+        do {
+            let libraryURL = try FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let themesURL = libraryURL
+                .appendingPathComponent("Developer")
+                .appendingPathComponent("XCode")
+                .appendingPathComponent("UserData")
+                .appendingPathComponent("FontAndColorThemes")
+
+            if !FileManager.default.fileExists(atPath: themesURL.path) {
+                try FileManager.default.createDirectory(at: themesURL, withIntermediateDirectories: false)
+            }
+            let contents = try FileManager.default
+                .contentsOfDirectory(at: themesURL, includingPropertiesForKeys: nil)
+                .filter { $0.pathExtension == "xccolortheme" }
+
+            for file in contents {
+                print(file.path)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 
     required init?(coder: NSCoder) {

@@ -1,47 +1,28 @@
 import AppKit
 
 public protocol ModuleProtocol {
-    
+    var name: String { get }
+    var icon: NSImage { get }
+    var viewController: NSViewController { get }
 }
 
-public protocol ModuleBuilderProtocol {
-
-    func build() -> ModuleModel
-}
-
-public struct ModuleModel {
-    public let title: String
-    public let icon: NSImage
-    public let viewController: NSViewController
-    
-    public init(title: String, icon: NSImage, viewController: NSViewController) {
-        self.title = title
-        self.icon = icon
-        self.viewController = viewController
-    }
-}
-
-
-public final class Debouncer {
-
-    private let delay: TimeInterval
-    private var workItem: DispatchWorkItem?
-    private weak var queue: DispatchQueue?
-
-    public init(queue: DispatchQueue, delay: TimeInterval = 0.5) {
-        self.queue = queue
-        self.delay = delay
-    }
-
-    public func run(action: @escaping () -> Void) {
-        workItem?.cancel()
-        workItem = DispatchWorkItem(block: action)
-        if let workItem = workItem {
-            queue?.asyncAfter(deadline: .now() + delay, execute: workItem)
+// the following code makes ALL OF Lists background color transparent:
+public extension NSTableView {
+    override func viewDidMoveToWindow() {
+        super.viewDidMoveToWindow()
+        backgroundColor = NSColor.clear
+        if let esv = enclosingScrollView {
+            esv.drawsBackground = false
         }
     }
+}
 
-    public func cancel() {
-        workItem?.cancel()
+// the following code makes ALL OF TextEditors background color transparent:
+public extension NSTextView {
+    override var frame: CGRect {
+        didSet {
+            backgroundColor = .clear
+            drawsBackground = true
+        }
     }
 }

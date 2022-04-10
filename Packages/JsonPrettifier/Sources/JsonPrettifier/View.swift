@@ -7,7 +7,7 @@
 
 import AppKit
 import DevToolsCore
-import Views
+import SharedViews
 
 final class TestJsonPrettifierView: NSView {
     

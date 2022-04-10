@@ -21,9 +21,9 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "DevToolsCore",
-            dependencies: ["Extensions", "Views"]),
-        .target(name: "Extensions"),
-        .target(name: "Views"),
+            dependencies: ["SharedViews", "Debouncer"]),
+        .target(name: "SharedViews"),
+        .target(name: "Debouncer"),
         .testTarget(
             name: "DevToolsCoreTests",
             dependencies: ["DevToolsCore"]),

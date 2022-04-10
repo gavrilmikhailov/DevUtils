@@ -12,7 +12,7 @@ import SnippetsManager
 import Themes
 
 protocol HomeViewControllerDelegate: AnyObject {
-    var modules: [ModuleModel] { get }
+    var modules: [ModuleProtocol] { get }
 
     func selectTab(at index: Int)
 }
@@ -23,10 +23,10 @@ final class HomeViewController: NSViewController {
         static let controlsWidth: CGFloat = 200
     }
 
-    let modules: [ModuleModel] = [
-        JsonPrettifierBuilder().build(),
-        SnippetsManagerBuilder().build(),
-        ThemesModule().build(),
+    let modules: [ModuleProtocol] = [
+        JsonPrettifierModule(),
+        ThemesModule(),
+        SnippetsManagerModule()
     ]
     private var homeControlsViewState: HomeControlsViewState = HomeControlsViewState()
     private weak var tabViewController: HomeTabView?
@@ -45,7 +45,7 @@ final class HomeViewController: NSViewController {
         homeControlsView.autoresizingMask = [.height]
 
         homeControlsViewState.rowViewModels = modules.enumerated().map { (index, module) in
-            HomeControlsViewRowViewModel(index: index, icon: module.icon, title: module.title)
+            HomeControlsViewRowViewModel(index: index, icon: module.icon, title: module.name)
         }
     }
     
@@ -68,7 +68,7 @@ final class HomeViewController: NSViewController {
         let submenu = NSMenu(title: "Navigate")
         for (index, module) in modules.enumerated() {
             let submenuItem = NSMenuItem()
-            submenuItem.title = module.title
+            submenuItem.title = module.name
             submenuItem.action = #selector(navigateToModule(_:))
             submenuItem.keyEquivalent = String(index + 1)
             submenuItem.tag = index
