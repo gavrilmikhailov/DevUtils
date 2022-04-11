@@ -11,13 +11,28 @@ final class ViewController: NSViewController {
     
     private lazy var collectionView: NSCollectionView = {
         let flowLayout = NSCollectionViewFlowLayout()
-        flowLayout.itemSize = NSSize(width: 120, height: 120)
+        flowLayout.itemSize = NSSize(width: 60, height: 60)
+        flowLayout.minimumLineSpacing = 3
+        flowLayout.minimumInteritemSpacing = 3
+        flowLayout.sectionInset = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        let gridLayout = NSCollectionViewGridLayout()
+        gridLayout.minimumLineSpacing = 20
+        gridLayout.minimumInteritemSpacing = 32
+        gridLayout.maximumItemSize = NSSize(width: 80, height: 100)
+        gridLayout.minimumItemSize = NSSize(width: 80, height: 100)
         let collectionView = NSCollectionView()
-        collectionView.collectionViewLayout = flowLayout
+        collectionView.collectionViewLayout = gridLayout
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.register(CollectionViewItem.self, forItemWithIdentifier: .init(type: CollectionViewItem.self))
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
+    }()
+    
+    private lazy var scrollView: NSScrollView = {
+        let scrollView = NSScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
     }()
     
     init() {
@@ -26,14 +41,22 @@ final class ViewController: NSViewController {
     
     override func loadView() {
         view = NSView(frame: .zero)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupLayout()
+    }
+    
+    private func setupLayout() {
         view.wantsLayer = true
         view.addSubview(collectionView)
 
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 32),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -32)
         ])
     }
     
@@ -70,11 +93,11 @@ final class ViewController: NSViewController {
 
 extension ViewController: NSCollectionViewDataSource {
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        50
     }
     
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
-        let item = CollectionViewItem(nibName: nil, bundle: nil)
+        let item = collectionView.makeItem(withIdentifier: .init(type: CollectionViewItem.self), for: indexPath)
         item.view.wantsLayer = true
         item.view.layer?.backgroundColor = NSColor.green.cgColor
         return item
@@ -89,5 +112,12 @@ final class CollectionViewItem: NSCollectionViewItem {
     
     override func loadView() {
         view = NSView(frame: .zero)
+    }
+}
+
+extension NSUserInterfaceItemIdentifier {
+
+    init<T>(type: T.Type) {
+        self.init(rawValue: String(describing: type))
     }
 }

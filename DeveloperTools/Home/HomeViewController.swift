@@ -24,8 +24,8 @@ final class HomeViewController: NSViewController {
     }
 
     let modules: [ModuleProtocol] = [
-        JsonPrettifierModule(),
         ThemesModule(),
+        JsonPrettifierModule(),
         SnippetsManagerModule()
     ]
     private var homeControlsViewState: HomeControlsViewState = HomeControlsViewState()
