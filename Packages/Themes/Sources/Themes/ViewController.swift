@@ -9,6 +9,46 @@ import AppKit
 
 final class CenteredCollectionViewLayout: NSCollectionViewLayout {
     
+    private var cache: [NSCollectionViewLayoutAttributes] = []
+    private var contentHeight: CGFloat = 0
+    private var contentWidth: CGFloat {
+        guard let collectionView = collectionView else {
+            return 0
+        }
+        return collectionView.bounds.width
+    }
+    
+    override var collectionViewContentSize: NSSize {
+        NSSize(width: contentWidth, height: contentHeight)
+    }
+    
+    override func prepare() {
+        guard cache.isEmpty, let collectionView = collectionView else {
+            return
+        }
+        for index in 0..<collectionView.numberOfItems(inSection: 0) {
+            let indexPath = IndexPath(item: index, section: 0)
+            let attributes = NSCollectionViewLayoutAttributes(forItemWith: indexPath)
+            attributes.frame = NSRect(x: index * 100, y: 0, width: 80, height: 120)
+            cache.append(attributes)
+        }
+    }
+    
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> NSCollectionViewLayoutAttributes? {
+        cache[indexPath.item]
+    }
+    
+    override func layoutAttributesForElements(in rect: NSRect) -> [NSCollectionViewLayoutAttributes] {
+        var visibleLayoutAttributes: [NSCollectionViewLayoutAttributes] = []
+
+        // Loop through the cache and look for items in the rect
+        for attributes in cache {
+            if attributes.frame.intersects(rect) {
+                visibleLayoutAttributes.append(attributes)
+            }
+        }
+        return visibleLayoutAttributes
+    }
 }
 
 final class ViewController: NSViewController {
@@ -25,7 +65,7 @@ final class ViewController: NSViewController {
         gridLayout.maximumItemSize = NSSize(width: 80, height: 100)
         gridLayout.minimumItemSize = NSSize(width: 80, height: 100)
         let collectionView = NSCollectionView()
-        collectionView.collectionViewLayout = gridLayout
+        collectionView.collectionViewLayout = CenteredCollectionViewLayout()
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(CollectionViewItem.self, forItemWithIdentifier: .init(type: CollectionViewItem.self))
