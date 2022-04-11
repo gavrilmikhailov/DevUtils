@@ -7,6 +7,10 @@
 
 import AppKit
 
+final class CenteredCollectionViewLayout: NSCollectionViewLayout {
+    
+}
+
 final class ViewController: NSViewController {
     
     private lazy var collectionView: NSCollectionView = {
@@ -31,6 +35,8 @@ final class ViewController: NSViewController {
     
     private lazy var scrollView: NSScrollView = {
         let scrollView = NSScrollView()
+        scrollView.wantsLayer = true
+        scrollView.contentInsets = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
@@ -50,13 +56,20 @@ final class ViewController: NSViewController {
     
     private func setupLayout() {
         view.wantsLayer = true
-        view.addSubview(collectionView)
+        view.addSubview(scrollView)
+//        scrollView.addSubview(collectionView)
+        scrollView.documentView = collectionView
 
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 32),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -32)
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 32),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+//            collectionView.topAnchor.constraint(equalTo: scrollView.co.topAnchor, constant: 32),
+//            collectionView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 32),
+//            collectionView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -32),
+//            collectionView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -32)
         ])
     }
     
