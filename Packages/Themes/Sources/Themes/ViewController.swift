@@ -7,65 +7,15 @@
 
 import AppKit
 
-final class CenteredCollectionViewLayout: NSCollectionViewLayout {
-    
-    private var cache: [NSCollectionViewLayoutAttributes] = []
-    private var contentHeight: CGFloat = 0
-    private var contentWidth: CGFloat {
-        guard let collectionView = collectionView else {
-            return 0
-        }
-        return collectionView.bounds.width
-    }
-    
-    override var collectionViewContentSize: NSSize {
-        NSSize(width: contentWidth, height: contentHeight)
-    }
-    
-    override func prepare() {
-        guard cache.isEmpty, let collectionView = collectionView else {
-            return
-        }
-        for index in 0..<collectionView.numberOfItems(inSection: 0) {
-            let indexPath = IndexPath(item: index, section: 0)
-            let attributes = NSCollectionViewLayoutAttributes(forItemWith: indexPath)
-            attributes.frame = NSRect(x: index * 100, y: 0, width: 80, height: 120)
-            cache.append(attributes)
-        }
-    }
-    
-    override func layoutAttributesForItem(at indexPath: IndexPath) -> NSCollectionViewLayoutAttributes? {
-        cache[indexPath.item]
-    }
-    
-    override func layoutAttributesForElements(in rect: NSRect) -> [NSCollectionViewLayoutAttributes] {
-        var visibleLayoutAttributes: [NSCollectionViewLayoutAttributes] = []
-
-        // Loop through the cache and look for items in the rect
-        for attributes in cache {
-            if attributes.frame.intersects(rect) {
-                visibleLayoutAttributes.append(attributes)
-            }
-        }
-        return visibleLayoutAttributes
-    }
-}
-
 final class ViewController: NSViewController {
     
     private lazy var collectionView: NSCollectionView = {
-        let flowLayout = NSCollectionViewFlowLayout()
-        flowLayout.itemSize = NSSize(width: 60, height: 60)
-        flowLayout.minimumLineSpacing = 3
-        flowLayout.minimumInteritemSpacing = 3
-        flowLayout.sectionInset = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        let gridLayout = NSCollectionViewGridLayout()
-        gridLayout.minimumLineSpacing = 20
-        gridLayout.minimumInteritemSpacing = 32
-        gridLayout.maximumItemSize = NSSize(width: 80, height: 100)
-        gridLayout.minimumItemSize = NSSize(width: 80, height: 100)
+        let centeredLayout = CenteredCollectionViewLayout()
+//        centeredLayout.itemSize = NSSize(width: 10, height: 10)
+//        centeredLayout.horizontalSpacing = 5
+//        centeredLayout.verticalSpacing = 5
         let collectionView = NSCollectionView()
-        collectionView.collectionViewLayout = CenteredCollectionViewLayout()
+        collectionView.collectionViewLayout = centeredLayout
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(CollectionViewItem.self, forItemWithIdentifier: .init(type: CollectionViewItem.self))
@@ -97,19 +47,13 @@ final class ViewController: NSViewController {
     private func setupLayout() {
         view.wantsLayer = true
         view.addSubview(scrollView)
-//        scrollView.addSubview(collectionView)
         scrollView.documentView = collectionView
 
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 32),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-//            collectionView.topAnchor.constraint(equalTo: scrollView.co.topAnchor, constant: 32),
-//            collectionView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 32),
-//            collectionView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -32),
-//            collectionView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -32)
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
@@ -146,26 +90,19 @@ final class ViewController: NSViewController {
 
 extension ViewController: NSCollectionViewDataSource {
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        50
+        1000
     }
     
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: .init(type: CollectionViewItem.self), for: indexPath)
         item.view.wantsLayer = true
-        item.view.layer?.backgroundColor = NSColor.green.cgColor
+        item.view.layer?.backgroundColor = NSColor.lightGray.cgColor
         return item
     }
 }
 
 extension ViewController: NSCollectionViewDelegate {
     
-}
-
-final class CollectionViewItem: NSCollectionViewItem {
-    
-    override func loadView() {
-        view = NSView(frame: .zero)
-    }
 }
 
 extension NSUserInterfaceItemIdentifier {
