@@ -21,9 +21,11 @@ final class CenteredCollectionViewLayout: NSCollectionViewLayout {
     
     private var numberOfItemsInRow = 0
     private var numberOfRows = 0
-    
+
+    private var bounds: NSRect?
+
     override var collectionViewContentSize: NSSize {
-        let width = CGFloat(numberOfItemsInRow) * (itemSize.width + spacing)
+        let width = CGFloat(numberOfItemsInRow) * (itemSize.width + spacing) + contentInsets.left + contentInsets.right
         let height = CGFloat(numberOfRows) * (itemSize.height + verticalSpacing)
         return NSSize(width: width, height: height)
     }
@@ -33,11 +35,12 @@ final class CenteredCollectionViewLayout: NSCollectionViewLayout {
             return
         }
         cache.removeAll()
-        numberOfItemsInRow = Int(collectionView.bounds.width / (itemSize.width + minSpacing))
+        let availableWidth = (bounds?.width ?? collectionView.bounds.width) - contentInsets.left - contentInsets.right
+        numberOfItemsInRow = Int(availableWidth / (itemSize.width + minSpacing))
         numberOfRows = Int(ceil(Double(collectionView.numberOfItems(inSection: 0)) / Double(numberOfItemsInRow)))
         
         let itemsWidth = CGFloat(numberOfItemsInRow) * itemSize.width
-        let totalAvailableSpacing = collectionView.bounds.width - itemsWidth
+        let totalAvailableSpacing = availableWidth - itemsWidth
         spacing = totalAvailableSpacing / CGFloat(numberOfItemsInRow)
 
         for row in 0..<numberOfRows {
@@ -45,7 +48,7 @@ final class CenteredCollectionViewLayout: NSCollectionViewLayout {
                 let indexPath = IndexPath(item: index + numberOfItemsInRow * row, section: 0)
                 let attributes = NSCollectionViewLayoutAttributes(forItemWith: indexPath)
                 let frame = NSRect(
-                    x: CGFloat(index) * (itemSize.width + spacing) + spacing / 2,
+                    x: CGFloat(index) * (itemSize.width + spacing) + spacing / 2 + contentInsets.left,
                     y: CGFloat(row) * (itemSize.height + verticalSpacing),
                     width: itemSize.width,
                     height: itemSize.height)
@@ -69,8 +72,9 @@ final class CenteredCollectionViewLayout: NSCollectionViewLayout {
         }
         return visibleLayoutAttributes
     }
-    
+
     override func shouldInvalidateLayout(forBoundsChange newBounds: NSRect) -> Bool {
-        true
+        bounds = newBounds
+        return true
     }
 }
