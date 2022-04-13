@@ -9,12 +9,13 @@ import AppKit
 
 final class CenteredCollectionViewLayout: NSCollectionViewLayout {
     
-    var itemSize: NSSize = NSSize(width: 80, height: 120)
-    var horizontalSpacing: CGFloat = 20
+    var itemSize: NSSize = NSSize(width: 90, height: 120)
     var verticalSpacing: CGFloat = 20
     
-    private var minSpacing: CGFloat = 20
-    private var maxSpacing: CGFloat = 40
+    private var contentInsets = NSEdgeInsets(top: 32.0, left: 32.0, bottom: 32.0, right: 32.0)
+    
+    private let minSpacing: CGFloat = 32
+    private lazy var spacing: CGFloat = minSpacing
     
     private var cache: [NSCollectionViewLayoutAttributes] = []
     
@@ -22,8 +23,8 @@ final class CenteredCollectionViewLayout: NSCollectionViewLayout {
     private var numberOfRows = 0
     
     override var collectionViewContentSize: NSSize {
-        let width: CGFloat = CGFloat(numberOfItemsInRow) * (itemSize.width + horizontalSpacing)
-        let height: CGFloat = CGFloat(numberOfRows) * (itemSize.height + verticalSpacing)
+        let width = CGFloat(numberOfItemsInRow) * (itemSize.width + spacing)
+        let height = CGFloat(numberOfRows) * (itemSize.height + verticalSpacing)
         return NSSize(width: width, height: height)
     }
     
@@ -32,15 +33,19 @@ final class CenteredCollectionViewLayout: NSCollectionViewLayout {
             return
         }
         cache.removeAll()
-        numberOfItemsInRow = Int(floor(collectionView.bounds.width / (itemSize.width + horizontalSpacing)))
+        numberOfItemsInRow = Int(collectionView.bounds.width / (itemSize.width + minSpacing))
         numberOfRows = Int(ceil(Double(collectionView.numberOfItems(inSection: 0)) / Double(numberOfItemsInRow)))
         
+        let itemsWidth = CGFloat(numberOfItemsInRow) * itemSize.width
+        let totalAvailableSpacing = collectionView.bounds.width - itemsWidth
+        spacing = totalAvailableSpacing / CGFloat(numberOfItemsInRow)
+
         for row in 0..<numberOfRows {
             for index in 0..<numberOfItemsInRow {
                 let indexPath = IndexPath(item: index + numberOfItemsInRow * row, section: 0)
                 let attributes = NSCollectionViewLayoutAttributes(forItemWith: indexPath)
                 let frame = NSRect(
-                    x: CGFloat(index) * (horizontalSpacing + itemSize.width),
+                    x: CGFloat(index) * (itemSize.width + spacing) + spacing / 2,
                     y: CGFloat(row) * (itemSize.height + verticalSpacing),
                     width: itemSize.width,
                     height: itemSize.height)

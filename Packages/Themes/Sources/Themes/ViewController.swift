@@ -11,9 +11,6 @@ final class ViewController: NSViewController {
     
     private lazy var collectionView: NSCollectionView = {
         let centeredLayout = CenteredCollectionViewLayout()
-//        centeredLayout.itemSize = NSSize(width: 10, height: 10)
-//        centeredLayout.horizontalSpacing = 5
-//        centeredLayout.verticalSpacing = 5
         let collectionView = NSCollectionView()
         collectionView.collectionViewLayout = centeredLayout
         collectionView.dataSource = self
@@ -50,11 +47,15 @@ final class ViewController: NSViewController {
         scrollView.documentView = collectionView
 
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 32),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.collectionView.collectionViewLayout?.invalidateLayout()
+        }
     }
     
     fileprivate func extractedFunc() {
@@ -96,7 +97,7 @@ extension ViewController: NSCollectionViewDataSource {
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: .init(type: CollectionViewItem.self), for: indexPath)
         item.view.wantsLayer = true
-        item.view.layer?.backgroundColor = NSColor.lightGray.cgColor
+        item.view.layer?.backgroundColor = NSColor(red: .random(in: 0...1), green: .random(in: 0...1), blue: .random(in: 0...1), alpha: 1).cgColor
         return item
     }
 }
