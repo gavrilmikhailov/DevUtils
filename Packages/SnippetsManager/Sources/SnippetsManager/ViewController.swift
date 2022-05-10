@@ -12,6 +12,7 @@ final class ViewController: NSHostingController<SnippetsManagerView> {
     init() {
         super.init(rootView: SnippetsManagerView())
         title = "Snippets Manager"
+        // Location /Users/gavriilmihajlov/Library/Developer/Xcode/UserData/CodeSnippets
     }
 
     required init?(coder: NSCoder) {

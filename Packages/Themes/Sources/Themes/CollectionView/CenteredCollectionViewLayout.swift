@@ -6,6 +6,7 @@
 //
 
 import AppKit
+import OSLog
 
 final class CenteredCollectionViewLayout: NSCollectionViewLayout {
     
@@ -36,15 +37,15 @@ final class CenteredCollectionViewLayout: NSCollectionViewLayout {
         }
         cache.removeAll()
         let availableWidth = (bounds?.width ?? collectionView.bounds.width) - contentInsets.left - contentInsets.right
+        let numberOfItems = collectionView.numberOfItems(inSection: 0)
         numberOfItemsInRow = Int(availableWidth / (itemSize.width + minSpacing))
-        numberOfRows = Int(ceil(Double(collectionView.numberOfItems(inSection: 0)) / Double(numberOfItemsInRow)))
+        numberOfRows = Int(ceil(Double(numberOfItems) / Double(numberOfItemsInRow)))
         
         let itemsWidth = CGFloat(numberOfItemsInRow) * itemSize.width
         let totalAvailableSpacing = availableWidth - itemsWidth
         spacing = totalAvailableSpacing / CGFloat(numberOfItemsInRow)
-
         for row in 0..<numberOfRows {
-            for index in 0..<numberOfItemsInRow {
+            for index in 0..<(numberOfItemsInRow > numberOfItems ? numberOfItems : numberOfItemsInRow) {
                 let indexPath = IndexPath(item: index + numberOfItemsInRow * row, section: 0)
                 let attributes = NSCollectionViewLayoutAttributes(forItemWith: indexPath)
                 let frame = NSRect(
@@ -76,5 +77,11 @@ final class CenteredCollectionViewLayout: NSCollectionViewLayout {
     override func shouldInvalidateLayout(forBoundsChange newBounds: NSRect) -> Bool {
         bounds = newBounds
         return true
+    }
+}
+
+final class SomeScrollView: NSScrollView {
+    override func validateProposedFirstResponder(_ responder: NSResponder, for event: NSEvent?) -> Bool {
+        true
     }
 }
