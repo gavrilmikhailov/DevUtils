@@ -1,11 +1,11 @@
 import XCTest
-@testable import SnippetsManager
+@testable import Snippets
 
-final class SnippetsManagerTests: XCTestCase {
+final class SnippetsTests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        XCTAssertEqual(SnippetsManager().text, "Hello, World!")
+        XCTAssertEqual(Snippets().text, "Hello, World!")
     }
 }

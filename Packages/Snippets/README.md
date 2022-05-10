@@ -1,3 +1,3 @@
-# SnippetsManager
+# Snippets
 
 A description of this package.

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SnippetsManagerView: View {
+struct SnippetsView: View {
     
     @State var selectedPath: String = ""
     

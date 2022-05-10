@@ -8,7 +8,7 @@
 import AppKit
 import DevToolsCore
 import JsonPrettifier
-import SnippetsManager
+import Snippets
 import Themes
 
 protocol HomeViewControllerDelegate: AnyObject {
@@ -26,7 +26,7 @@ final class HomeViewController: NSViewController {
     let modules: [ModuleProtocol] = [
         ThemesModule(),
         JsonPrettifierModule(),
-        SnippetsManagerModule()
+        SnippetsModule()
     ]
     private var homeControlsViewState: HomeControlsViewState = HomeControlsViewState()
     private weak var tabViewController: HomeTabView?
@@ -64,7 +64,6 @@ final class HomeViewController: NSViewController {
     }
     
     private func setupNavigationMenu() {
-        guard !modules.isEmpty else { return }
         let submenu = NSMenu(title: "Navigate")
         for (index, module) in modules.enumerated() {
             let submenuItem = NSMenuItem()

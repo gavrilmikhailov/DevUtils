@@ -8,7 +8,7 @@
 import AppKit
 import DevToolsCore
 import JsonPrettifier
-import SnippetsManager
+import Snippets
 
 final class HomeTabView: NSTabViewController {
     

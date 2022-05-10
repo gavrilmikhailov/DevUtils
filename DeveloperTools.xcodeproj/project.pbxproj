@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6DB745B7282AB05900572931 /* Snippets in Resources */ = {isa = PBXBuildFile; fileRef = 6DB745B6282AB05900572931 /* Snippets */; };
+		6DB745B9282AB0A700572931 /* Snippets in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB745B8282AB0A700572931 /* Snippets */; };
 		6DD6C31B2802FA1D008469FA /* Themes in Frameworks */ = {isa = PBXBuildFile; productRef = 6DD6C31A2802FA1D008469FA /* Themes */; };
 		6DFCEBEE2801C18B00D83620 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFCEBED2801C18B00D83620 /* AppDelegate.swift */; };
-		6DFCEBF02801C18B00D83620 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFCEBEF2801C18B00D83620 /* ViewController.swift */; };
 		6DFCEBF22801C18C00D83620 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DFCEBF12801C18C00D83620 /* Assets.xcassets */; };
 		6DFCEBF52801C18C00D83620 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DFCEBF32801C18C00D83620 /* Main.storyboard */; };
 		6DFCEC032801C2D900D83620 /* HomeControlsViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFCEBFE2801C2D900D83620 /* HomeControlsViewState.swift */; };
@@ -18,14 +19,13 @@
 		6DFCEC062801C2D900D83620 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFCEC022801C2D900D83620 /* HomeViewController.swift */; };
 		6DFCEC0D2801C30B00D83620 /* DevToolsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6DFCEC0C2801C30B00D83620 /* DevToolsCore */; };
 		6DFCEC0F2801C30F00D83620 /* JsonPrettifier in Frameworks */ = {isa = PBXBuildFile; productRef = 6DFCEC0E2801C30F00D83620 /* JsonPrettifier */; };
-		6DFCEC112801C31200D83620 /* SnippetsManager in Frameworks */ = {isa = PBXBuildFile; productRef = 6DFCEC102801C31200D83620 /* SnippetsManager */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6DB745B6282AB05900572931 /* Snippets */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Snippets; path = Packages/Snippets; sourceTree = "<group>"; };
 		6DD6C3192802FA08008469FA /* Themes */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Themes; path = Packages/Themes; sourceTree = "<group>"; };
 		6DFCEBEA2801C18B00D83620 /* DeveloperTools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeveloperTools.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DFCEBED2801C18B00D83620 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6DFCEBEF2801C18B00D83620 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6DFCEBF12801C18C00D83620 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6DFCEBF42801C18C00D83620 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6DFCEBF62801C18C00D83620 /* DeveloperTools.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DeveloperTools.entitlements; sourceTree = "<group>"; };
@@ -35,7 +35,6 @@
 		6DFCEC022801C2D900D83620 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		6DFCEC082801C2E500D83620 /* DevToolsCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DevToolsCore; path = Packages/DevToolsCore; sourceTree = "<group>"; };
 		6DFCEC092801C2F300D83620 /* JsonPrettifier */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = JsonPrettifier; path = Packages/JsonPrettifier; sourceTree = "<group>"; };
-		6DFCEC0A2801C2FF00D83620 /* SnippetsManager */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SnippetsManager; path = Packages/SnippetsManager; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,8 +44,8 @@
 			files = (
 				6DD6C31B2802FA1D008469FA /* Themes in Frameworks */,
 				6DFCEC0F2801C30F00D83620 /* JsonPrettifier in Frameworks */,
+				6DB745B9282AB0A700572931 /* Snippets in Frameworks */,
 				6DFCEC0D2801C30B00D83620 /* DevToolsCore in Frameworks */,
-				6DFCEC112801C31200D83620 /* SnippetsManager in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,7 +75,6 @@
 			children = (
 				6DFCEBFC2801C2D900D83620 /* Home */,
 				6DFCEBED2801C18B00D83620 /* AppDelegate.swift */,
-				6DFCEBEF2801C18B00D83620 /* ViewController.swift */,
 				6DFCEBF12801C18C00D83620 /* Assets.xcassets */,
 				6DFCEBF32801C18C00D83620 /* Main.storyboard */,
 				6DFCEBF62801C18C00D83620 /* DeveloperTools.entitlements */,
@@ -114,10 +112,10 @@
 		6DFCEC072801C2E500D83620 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				6DB745B6282AB05900572931 /* Snippets */,
 				6DD6C3192802FA08008469FA /* Themes */,
 				6DFCEC082801C2E500D83620 /* DevToolsCore */,
 				6DFCEC092801C2F300D83620 /* JsonPrettifier */,
-				6DFCEC0A2801C2FF00D83620 /* SnippetsManager */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -148,8 +146,8 @@
 			packageProductDependencies = (
 				6DFCEC0C2801C30B00D83620 /* DevToolsCore */,
 				6DFCEC0E2801C30F00D83620 /* JsonPrettifier */,
-				6DFCEC102801C31200D83620 /* SnippetsManager */,
 				6DD6C31A2802FA1D008469FA /* Themes */,
+				6DB745B8282AB0A700572931 /* Snippets */,
 			);
 			productName = DeveloperTools;
 			productReference = 6DFCEBEA2801C18B00D83620 /* DeveloperTools.app */;
@@ -195,6 +193,7 @@
 			files = (
 				6DFCEBF22801C18C00D83620 /* Assets.xcassets in Resources */,
 				6DFCEBF52801C18C00D83620 /* Main.storyboard in Resources */,
+				6DB745B7282AB05900572931 /* Snippets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,7 +207,6 @@
 				6DFCEC032801C2D900D83620 /* HomeControlsViewState.swift in Sources */,
 				6DFCEC042801C2D900D83620 /* HomeControlsView.swift in Sources */,
 				6DFCEC052801C2D900D83620 /* HomeTabView.swift in Sources */,
-				6DFCEBF02801C18B00D83620 /* ViewController.swift in Sources */,
 				6DFCEBEE2801C18B00D83620 /* AppDelegate.swift in Sources */,
 				6DFCEC062801C2D900D83620 /* HomeViewController.swift in Sources */,
 			);
@@ -421,6 +419,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6DB745B8282AB0A700572931 /* Snippets */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Snippets;
+		};
 		6DD6C31A2802FA1D008469FA /* Themes */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Themes;
@@ -432,10 +434,6 @@
 		6DFCEC0E2801C30F00D83620 /* JsonPrettifier */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = JsonPrettifier;
-		};
-		6DFCEC102801C31200D83620 /* SnippetsManager */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = SnippetsManager;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

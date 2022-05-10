@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-final class ViewController: NSHostingController<SnippetsManagerView> {
+final class ViewController: NSHostingController<SnippetsView> {
     
     init() {
-        super.init(rootView: SnippetsManagerView())
+        super.init(rootView: SnippetsView())
         title = "Snippets Manager"
         // Location /Users/gavriilmihajlov/Library/Developer/Xcode/UserData/CodeSnippets
     }
