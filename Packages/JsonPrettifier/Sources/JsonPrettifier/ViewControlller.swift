@@ -7,8 +7,6 @@
 
 import AppKit
 import DevToolsCore
-import SharedViews
-import Debouncer
 
 final class ViewController: NSViewController {
     
