@@ -10,6 +10,7 @@ import DevToolsCore
 import JsonPrettifier
 import Snippets
 import Themes
+import PushNotifications
 
 protocol HomeViewControllerDelegate: AnyObject {
     var modules: [ModuleProtocol] { get }
@@ -26,7 +27,8 @@ final class HomeViewController: NSViewController {
     let modules: [ModuleProtocol] = [
         ThemesModule(),
         JsonPrettifierModule(),
-        SnippetsModule()
+        SnippetsModule(),
+        PushNotificationsModule()
     ]
     private var homeControlsViewState: HomeControlsViewState = HomeControlsViewState()
     private weak var tabViewController: HomeTabView?
