@@ -46,17 +46,17 @@ public final class FirebaseClient {
         }
     }
     
-    public func uploadFiles(window: NSWindow, fileURLs: [URL]) {
+    public func uploadFiles(window: NSWindow, fileURLs: [URL], completion: ((URL, Progress?) -> Void)? = nil) {
         if Auth.auth().currentUser != nil {
-            _uploadFiles(fileURLs: fileURLs)
+            _uploadFiles(fileURLs: fileURLs, completion: completion)
         } else {
             signIn(presenting: window) {
-                self._uploadFiles(fileURLs: fileURLs)
+                self._uploadFiles(fileURLs: fileURLs, completion: completion)
             }
         }
     }
     
-    private func _uploadFiles(fileURLs: [URL]) {
+    private func _uploadFiles(fileURLs: [URL], completion: ((URL, Progress?) -> Void)? = nil) {
         guard let userID = Auth.auth().currentUser?.uid else {
             print("Not signed in")
             return
@@ -65,8 +65,11 @@ public final class FirebaseClient {
         let themesReference = storage.reference().child("themes/" + userID)
         fileURLs.forEach { url in
             let themeReference = themesReference.child(url.lastPathComponent)
-            let uploadTask = themeReference.putFile(from: url, metadata: nil)
-            uploadTask.resume()
+            let task = themeReference.putFile(from: url, metadata: nil)
+            task.observe(.progress) { snapshot in
+                completion?(url, snapshot.progress)
+            }
+            task.resume()
         }
     }
     

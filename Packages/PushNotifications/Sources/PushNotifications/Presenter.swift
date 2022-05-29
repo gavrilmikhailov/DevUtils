@@ -15,7 +15,9 @@ final class Presenter {
     func presentListOfDevices(devicesModel: DevicesModel) {
         let viewModels = devicesModel.devices
             .filter { $0.key.contains("iOS") }
-            .values.map { devices in
+            .sorted(by: { $0.key < $1.key })
+            .compactMap({ $0.value })
+            .map { devices in
                 devices
                     .filter { $0.isAvailable }
                     .map { DeviceViewModel(id: $0.udid, name: $0.name, isBooted: $0.state == .booted) }

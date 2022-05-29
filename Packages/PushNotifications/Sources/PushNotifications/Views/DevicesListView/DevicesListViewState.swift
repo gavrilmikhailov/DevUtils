@@ -5,7 +5,7 @@
 //  Created by Гавриил Михайлов on 28.05.2022.
 //
 
-import SwiftUI
+import Combine
 
 final class DevicesListViewState: ObservableObject {
     @Published var devices: [DeviceViewModel] = []

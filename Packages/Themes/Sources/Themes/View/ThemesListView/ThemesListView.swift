@@ -1,19 +1,19 @@
 //
-//  DevicesListView.swift
+//  ThemesListView.swift
 //  
 //
-//  Created by Гавриил Михайлов on 28.05.2022.
+//  Created by Гавриил Михайлов on 29.05.2022.
 //
 
 import SwiftUI
 
-final class DevicesListView: NSHostingView<DevicesListRootView> {
+final class ThemesListView: NSHostingView<ThemesListRootView> {
     
-    init(viewState: DevicesListViewState, delegate: ViewControllerDelegate?) {
-        super.init(rootView: DevicesListRootView(viewState: viewState, delegate: delegate))
+    init(viewState: ThemesListViewState, delegate: ViewControllerDelegate?) {
+        super.init(rootView: ThemesListRootView(viewState: viewState, delegate: delegate))
     }
-    
-    @MainActor required init(rootView: DevicesListRootView) {
+
+    @MainActor required init(rootView: ThemesListRootView) {
         super.init(rootView: rootView)
     }
 
@@ -22,32 +22,27 @@ final class DevicesListView: NSHostingView<DevicesListRootView> {
     }
 }
 
-struct DevicesListRootView: View {
+struct ThemesListRootView: View {
     
-    @ObservedObject var viewState: DevicesListViewState
+    @ObservedObject var viewState: ThemesListViewState
     weak var delegate: ViewControllerDelegate?
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Devices")
-            List(viewState.devices) { viewModel in
+            Text("Themes")
+            List(viewState.themes) { viewModel in
                 Button {
-                    delegate?.selectDevice(id: viewModel.id)
+//                    delegate?.selectDevice(id: viewModel.id)
                 } label: {
                     ButtonLabelView(
                         name: viewModel.name,
-                        isSelected: viewState.selectedDeviceID == viewModel.id,
-                        isBooted: viewModel.isBooted
+                        isSelected: viewState.selectedThemeID == viewModel.id
                     )
                 }
                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                 .contextMenu {
-                    viewModel.isBooted
-                    ? Button("Shutdown") {
-                        delegate?.shutdownDevice(id: viewModel.id)
-                    }
-                    : Button("Boot") {
-                        delegate?.bootDevice(id: viewModel.id)
+                    Button("Reveal in Finder") {
+                        delegate?.revealInFinder(id: viewModel.id)
                     }
                 }
             }
@@ -64,12 +59,11 @@ struct ButtonLabelView: View {
     
     let name: String
     let isSelected: Bool
-    let isBooted: Bool
     
     var body: some View {
         Group {
             HStack {
-                Image(systemName: isBooted ? "poweron" : "poweroff")
+                Image(systemName: "paintbrush")
                     .frame(width: 12, height: 12, alignment: .center)
                 Text(name)
                     .font(Font.system(size: 12))

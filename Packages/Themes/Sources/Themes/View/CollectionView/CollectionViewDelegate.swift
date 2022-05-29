@@ -10,9 +10,9 @@ import AppKit
 final class CollectionViewDelegate: NSObject, NSCollectionViewDelegate {
     
     private unowned let viewModelsDataSource: ViewModelsDataSource
-    private unowned let viewDelegate: ViewDelegate
+    private unowned let viewDelegate: ViewControllerDelegate
     
-    init(viewModelsDataSource: ViewModelsDataSource, viewDelegate: ViewDelegate) {
+    init(viewModelsDataSource: ViewModelsDataSource, viewDelegate: ViewControllerDelegate) {
         self.viewModelsDataSource = viewModelsDataSource
         self.viewDelegate = viewDelegate
     }

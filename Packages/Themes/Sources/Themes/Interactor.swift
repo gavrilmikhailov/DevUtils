@@ -6,16 +6,22 @@
 //
 
 import AppKit
+import DevToolsCore
 import FirebaseClient
 
 final class Interactor {
 
     private let presenter: Presenter
+    private let debouncer: Debouncer
+
+    private var lastUploadDate: Date?
     private var files: [FileModel]
     
     init(presenter: Presenter) {
         self.presenter = presenter
+        self.debouncer = Debouncer(queue: DispatchQueue.global())
         self.files = []
+        loadLastUpdateDate()
     }
     
     func loadFiles() {
@@ -35,9 +41,10 @@ final class Interactor {
                 .contentsOfDirectory(at: themesURL, includingPropertiesForKeys: nil)
                 .filter { $0.pathExtension == "xccolortheme" }
             files = fileURLs.map {
-                FileModel(url: $0, isSelected: false)
+                FileModel(id: UUID().uuidString, url: $0, isSelected: false)
             }
             presenter.presentFiles(files: files)
+            presenter.presentLastUploadDate(date: lastUploadDate)
         } catch {
             presenter.presentError(errorMessage: error.localizedDescription)
         }
@@ -50,8 +57,8 @@ final class Interactor {
         presenter.presentFiles(files: files)
     }
     
-    func revealFilesInFinder() {
-        let selectedFiles = files.filter { $0.isSelected }
+    func revealInFinder(id: String) {
+        let selectedFiles = files.filter { $0.id == id }
         if !selectedFiles.isEmpty {
             let fileURLS = selectedFiles.map { $0.url }
             NSWorkspace.shared.activateFileViewerSelecting(fileURLS)
@@ -72,6 +79,25 @@ final class Interactor {
     
     func uploadFiles(window: NSWindow) {
         let fileURLs = files.map { $0.url }
-        FirebaseClient.shared.uploadFiles(window: window, fileURLs: fileURLs)
+        FirebaseClient.shared.uploadFiles(window: window, fileURLs: fileURLs) { [weak self] _, _ in
+            self?.debouncer.run {
+                DispatchQueue.main.async {
+                    self?.updateLastUpdateDate()
+                }
+            }
+        }
+    }
+    
+    private func loadLastUpdateDate() {
+        let timestamp = UserDefaults.standard.double(forKey: "ThemesLastUploadDate")
+        if timestamp != 0 {
+            lastUploadDate = Date(timeIntervalSince1970: timestamp)
+        }
+    }
+    
+    private func updateLastUpdateDate() {
+        lastUploadDate = Date()
+        UserDefaults.standard.set(lastUploadDate!.timeIntervalSince1970, forKey: "ThemesLastUploadDate")
+        presenter.presentLastUploadDate(date: lastUploadDate)
     }
 }

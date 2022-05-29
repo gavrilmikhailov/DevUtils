@@ -8,6 +8,7 @@
 import Foundation
 
 struct FileModel {
+    let id: String
     let url: URL
     var isSelected: Bool
 }

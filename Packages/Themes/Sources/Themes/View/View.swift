@@ -9,34 +9,20 @@ import AppKit
 
 final class ThemesView: NSView {
     
-    private let collectionDataSource: CollectionViewDataSource
-    private let collectionDelegate: CollectionViewDelegate
-    private unowned let viewDelegate: ViewDelegate
+    private let themesListViewState = ThemesListViewState()
+    private weak var delegate: ViewControllerDelegate?
     
-    private lazy var collectionView: NSCollectionView = {
-        let centeredLayout = CenteredCollectionViewLayout()
-        let collectionView = NSCollectionView()
-        collectionView.allowsEmptySelection = true
-        collectionView.allowsMultipleSelection = true
-        collectionView.collectionViewLayout = centeredLayout
-        collectionView.dataSource = collectionDataSource
-        collectionView.delegate = collectionDelegate
-        collectionView.isSelectable = true
-        collectionView.register(CollectionViewItem.self, forItemWithIdentifier: .init(type: CollectionViewItem.self))
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        let menu = NSMenu()
-        menu.addItem(withTitle: "Reveal in Finder", action: #selector(revealInFinder), keyEquivalent: "")
-        menu.addItem(withTitle: "Delete", action: nil, keyEquivalent: "")
-        collectionView.menu = menu
-        return collectionView
+    private lazy var themesListView: ThemesListView = {
+        let view = ThemesListView(viewState: themesListViewState, delegate: delegate)
+        view.setContentHuggingPriority(.defaultLow, for: .vertical)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
-    
-    private lazy var scrollView: SomeScrollView = {
-        let scrollView = SomeScrollView()
-        scrollView.wantsLayer = true
-        scrollView.contentInsets = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
+
+    private lazy var lastUpdateDateLabel: NSTextField = {
+        let textField = NSTextField(labelWithString: "")
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
     }()
     
     private lazy var exportButton: NSButton = {
@@ -45,19 +31,8 @@ final class ThemesView: NSView {
         return button
     }()
     
-    private lazy var signOutButton: NSButton = {
-        let button = NSButton(title: "Sign out", target: self, action: #selector(didTapSignOutButton(_:)))
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    init(frame frameRect: NSRect, viewDelegate: ViewDelegate, viewModelsDataSource: ViewModelsDataSource) {
-        self.viewDelegate = viewDelegate
-        self.collectionDataSource = CollectionViewDataSource(viewModelsDataSource: viewModelsDataSource)
-        self.collectionDelegate = CollectionViewDelegate(
-            viewModelsDataSource: viewModelsDataSource,
-            viewDelegate: viewDelegate
-        )
+    init(frame frameRect: NSRect, delegate: ViewControllerDelegate) {
+        self.delegate = delegate
         super.init(frame: frameRect)
         setupLayout()
     }
@@ -67,43 +42,42 @@ final class ThemesView: NSView {
     }
     
     private func setupLayout() {
-        wantsLayer = true
-        addSubview(scrollView)
+        addSubview(themesListView)
+        addSubview(lastUpdateDateLabel)
         addSubview(exportButton)
-        addSubview(signOutButton)
-        scrollView.documentView = collectionView
 
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            themesListView.topAnchor.constraint(equalTo: topAnchor),
+            themesListView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            themesListView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
+            themesListView.widthAnchor.constraint(equalToConstant: 250),
             
-            exportButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            exportButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            lastUpdateDateLabel.leadingAnchor.constraint(equalTo: themesListView.trailingAnchor, constant: 12),
+            lastUpdateDateLabel.bottomAnchor.constraint(equalTo: exportButton.topAnchor, constant: -12),
             
-            signOutButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            signOutButton.trailingAnchor.constraint(equalTo: exportButton.leadingAnchor, constant: -12)
+            exportButton.leadingAnchor.constraint(equalTo: themesListView.trailingAnchor, constant: 12),
+            exportButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12)
         ])
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.collectionView.collectionViewLayout?.invalidateLayout()
-        }
     }
     
     @objc private func revealInFinder() {
-        viewDelegate.didTapRevealInFinder()
+//        viewDelegate.didTapRevealInFinder()
     }
     
     @objc private func didTapExportButton(_ sender: NSButton) {
-        viewDelegate.uploadFiles()
-    }
-    
-    @objc private func didTapSignOutButton(_ sender: NSButton) {
-//        FirebaseClient.shared.signOut()
+        delegate?.uploadFiles()
     }
     
     func reloadData() {
-        collectionView.reloadData()
+//        collectionView.reloadData()
+    }
+    
+    func configure(viewModels: [ThemeViewModel]) {
+        themesListViewState.themes = viewModels
+    }
+    
+    func configure(lastUpdateDate: String) {
+        print(lastUpdateDate)
+        lastUpdateDateLabel.stringValue = lastUpdateDate
     }
 }

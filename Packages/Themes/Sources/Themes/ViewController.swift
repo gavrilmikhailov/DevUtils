@@ -9,14 +9,18 @@ import AppKit
 
 protocol PresenterDelegate: AnyObject {
     
-    func displayFiles(viewModels: [CollectionItemViewModel])
+    func displayFiles(viewModels: [ThemeViewModel])
+    
+    func displayLastUpdateDate(text: String)
+    
+    func displayError(message: String)
 }
 
-protocol ViewDelegate: AnyObject {
+protocol ViewControllerDelegate: AnyObject {
 
     func didSelectItems(at indexPaths: Set<IndexPath>)
     
-    func didTapRevealInFinder()
+    func revealInFinder(id: String)
     
     func uploadFiles()
 }
@@ -38,7 +42,7 @@ final class ViewController: NSViewController, ViewModelsDataSource {
     }
     
     override func loadView() {
-        view = ThemesView(frame: .zero, viewDelegate: self, viewModelsDataSource: self)
+        view = ThemesView(frame: .zero, delegate: self)
     }
     
     override func viewDidLoad() {
@@ -51,15 +55,15 @@ final class ViewController: NSViewController, ViewModelsDataSource {
     }
 }
 
-extension ViewController: ViewDelegate {
+extension ViewController: ViewControllerDelegate {
     
     func didSelectItems(at indexPaths: Set<IndexPath>) {
         let indices = indexPaths.map { $0.item }.sorted()
         interactor.selectFiles(at: indices)
     }
 
-    func didTapRevealInFinder() {
-        interactor.revealFilesInFinder()
+    func revealInFinder(id: String) {
+        interactor.revealInFinder(id: id)
     }
     
     func uploadFiles() {
@@ -71,9 +75,19 @@ extension ViewController: ViewDelegate {
 
 extension ViewController: PresenterDelegate {
 
-    func displayFiles(viewModels: [CollectionItemViewModel]) {
-        self.viewModels = viewModels
-        customView.reloadData()
+    func displayFiles(viewModels: [ThemeViewModel]) {
+        customView.configure(viewModels: viewModels)
+    }
+    
+    func displayLastUpdateDate(text: String) {
+        customView.configure(lastUpdateDate: text)
+    }
+    
+    func displayError(message: String) {
+        let alert = NSAlert()
+        alert.informativeText = message
+        alert.messageText = "Error"
+        alert.runModal()
     }
 }
 

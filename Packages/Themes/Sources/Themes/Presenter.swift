@@ -11,14 +11,25 @@ final class Presenter {
     weak var presenterDelegate: PresenterDelegate?
     
     func presentFiles(files: [FileModel]) {
-        let viewModels: [CollectionItemViewModel] = files.map {
-            let title = $0.url.deletingPathExtension().lastPathComponent
-            return CollectionItemViewModel(title: title, isSelected: $0.isSelected)
+        let viewModels: [ThemeViewModel] = files.map {
+            let name = $0.url.deletingPathExtension().lastPathComponent
+            return ThemeViewModel(id: $0.url.path, name: name, isSelected: $0.isSelected)
         }
         presenterDelegate?.displayFiles(viewModels: viewModels)
     }
     
+    func presentLastUploadDate(date: Date?) {
+        if let date = date {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .long
+            dateFormatter.timeStyle = .short
+            let stringValue = dateFormatter.string(from: date)
+            let text = "Last updated at " + stringValue
+            presenterDelegate?.displayLastUpdateDate(text: text)
+        }
+    }
+    
     func presentError(errorMessage: String) {
-        
+        presenterDelegate?.displayError(message: errorMessage)
     }
 }
