@@ -6,17 +6,26 @@
 //
 
 import Foundation
+import DevToolsCore
 
 final class Presenter {
     
     weak var viewController: ViewControllerDisplayLogic?
     
-    func presentListOfDevices(output: String) {
-        let viewModels = output
-            .split(separator: "\n")
-            .map {
-                DeviceViewModel(id: UUID().uuidString, name: String($0))
+    func presentListOfDevices(devicesModel: DevicesModel) {
+        let viewModels = devicesModel.devices
+            .filter { $0.key.contains("iOS") }
+            .values.map { devices in
+                devices
+                    .filter { $0.isAvailable }
+                    .map { DeviceViewModel(id: $0.udid, name: $0.name, isBooted: $0.state == .booted) }
             }
+            .joined()
+            .map { $0 }
         viewController?.displayListOfDevices(viewModels: viewModels)
+    }
+    
+    func presentSelectDevice(id: String?) {
+        viewController?.displaySelectDevice(id: id)
     }
 }

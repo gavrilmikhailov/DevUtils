@@ -28,18 +28,35 @@ struct DevicesListRootView: View {
     weak var delegate: ViewControllerDelegate?
     
     var body: some View {
-        List(viewState.devices) { viewModel in
-            Button {
-                delegate?.selectDevice(id: viewModel.id)
-            } label: {
-                ButtonLabelView(name: viewModel.name, isSelected: viewState.selectedDeviceID == viewModel.id)
+        VStack {
+            Text("Devices")
+            List(viewState.devices) { viewModel in
+                Button {
+                    viewModel.isBooted ? delegate?.shutdownDevice(id: viewModel.id) : delegate?.selectDevice(id: viewModel.id)
+                } label: {
+                    ButtonLabelView(
+                        name: viewModel.name,
+                        isSelected: viewState.selectedDeviceID == viewModel.id,
+                        isBooted: viewModel.isBooted
+                    )
+                }
+                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                .contextMenu {
+                    viewModel.isBooted
+                    ? Button("Shutdown") {
+                        delegate?.shutdownDevice(id: viewModel.id)
+                    }
+                    : Button("Boot") {
+                        delegate?.bootDevice(id: viewModel.id)
+                    }
+                }
             }
-            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+            .buttonStyle(.plain)
+            .listStyle(PlainListStyle())
+            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+            .background(Color(nsColor: .windowBackgroundColor))
+            .cornerRadius(6, antialiased: true)
         }
-        .buttonStyle(.plain)
-        .listStyle(PlainListStyle())
-        .padding(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
-        .background(Color(nsColor: .windowBackgroundColor))
     }
 }
 
@@ -47,10 +64,13 @@ struct ButtonLabelView: View {
     
     let name: String
     let isSelected: Bool
+    let isBooted: Bool
     
     var body: some View {
         Group {
             HStack {
+                Image(systemName: isBooted ? "poweron" : "poweroff")
+                    .frame(width: 12, height: 12, alignment: .center)
                 Text(name)
                     .font(Font.system(size: 12))
                     .fontWeight(.regular)

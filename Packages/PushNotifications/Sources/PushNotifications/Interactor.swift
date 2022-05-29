@@ -10,6 +10,9 @@ import Foundation
 final class Interactor {
     
     private let presenter: Presenter
+
+    private var selectedDeviceID: String?
+    private var appBundleIdentifier: String?
     
     init(presenter: Presenter) {
         self.presenter = presenter
@@ -17,18 +20,49 @@ final class Interactor {
     
     func loadListOfDevices() {
         DispatchQueue.global().async { [presenter] in
-            let command = "xcrun simctl list devices"// | grep Booted"
-            if let output = command.runAsCommand() {
+            let command = "xcrun simctl list -j devices"
+            guard let data = command.runAsCommand()?.data(using: .utf8) else {
+                return
+            }
+            do {
+                let model = try JSONDecoder().decode(DevicesModel.self, from: data)
                 DispatchQueue.main.async {
-                    presenter.presentListOfDevices(output: output)
+                    presenter.presentListOfDevices(devicesModel: model)
                 }
+            } catch {
+                print(error.localizedDescription)
             }
         }
+    }
+    
+    func selectDevice(id: String) {
+        selectedDeviceID = selectedDeviceID == id ? nil : id
+        presenter.presentSelectDevice(id: selectedDeviceID)
+    }
+    
+    func bootDevice(id: String) {
+        let openSimulatorCommand = "open -a Simulator --background"
+        let bootDeviceCommand = "xcrun simctl boot \(id)"
+        openSimulatorCommand.runAsCommand()
+        bootDeviceCommand.runAsCommand()
+        loadListOfDevices()
+    }
+    
+    func shutdownDevice(id: String) {
+        let shutdownCommand = "xcrun simctl shutdown \(id)"
+        shutdownCommand.runAsCommand()
+        loadListOfDevices()
+    }
+    
+    func setAppBundleIdentifier(identifier: String) {
+        appBundleIdentifier = identifier
     }
 }
 
 
 extension String {
+    
+    @discardableResult
     func runAsCommand() -> String? {
         let pipe = Pipe()
         let task = Process()

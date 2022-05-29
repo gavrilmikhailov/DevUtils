@@ -8,4 +8,5 @@
 struct DeviceViewModel: Identifiable {
     let id: String
     let name: String
+    let isBooted: Bool
 }

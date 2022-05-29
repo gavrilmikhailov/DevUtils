@@ -10,11 +10,19 @@ import AppKit
 protocol ViewControllerDisplayLogic: AnyObject {
     
     func displayListOfDevices(viewModels: [DeviceViewModel])
+    
+    func displaySelectDevice(id: String?)
 }
 
 protocol ViewControllerDelegate: AnyObject {
     
     func selectDevice(id: String)
+    
+    func bootDevice(id: String)
+    
+    func shutdownDevice(id: String)
+    
+    func setAppBundleIdentifier(identifier: String)
 }
 
 final class ViewController: NSViewController {
@@ -32,8 +40,8 @@ final class ViewController: NSViewController {
         view = PushNotificationsView(frame: .zero, delegate: self)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear() {
+        super.viewWillAppear()
         interactor.loadListOfDevices()
     }
     
@@ -47,11 +55,27 @@ extension ViewController: ViewControllerDisplayLogic {
     func displayListOfDevices(viewModels: [DeviceViewModel]) {
         customView?.configure(viewModels: viewModels)
     }
+    
+    func displaySelectDevice(id: String?) {
+        customView?.configure(deviceID: id)
+    }
 }
 
 extension ViewController: ViewControllerDelegate {
     
     func selectDevice(id: String) {
-        
+        interactor.selectDevice(id: id)
+    }
+    
+    func bootDevice(id: String) {
+        interactor.bootDevice(id: id)
+    }
+    
+    func shutdownDevice(id: String) {
+        interactor.shutdownDevice(id: id)
+    }
+    
+    func setAppBundleIdentifier(identifier: String) {
+        interactor.setAppBundleIdentifier(identifier: identifier)
     }
 }
