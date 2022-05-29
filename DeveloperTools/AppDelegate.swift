@@ -6,11 +6,14 @@
 //
 
 import Cocoa
+import FirebaseClient
 
 @main
 final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        let client = FirebaseClient()
+        client.initializeApp()
         // Insert code here to initialize your application
     }
 
