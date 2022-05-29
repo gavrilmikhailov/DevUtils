@@ -6,6 +6,7 @@
 //
 
 import AppKit
+import FirebaseClient
 
 final class Interactor {
 
@@ -67,5 +68,10 @@ final class Interactor {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func uploadFiles(window: NSWindow) {
+        let fileURLs = files.map { $0.url }
+        FirebaseClient.shared.uploadFiles(window: window, fileURLs: fileURLs)
     }
 }

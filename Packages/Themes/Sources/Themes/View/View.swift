@@ -6,7 +6,6 @@
 //
 
 import AppKit
-import FirebaseClient
 
 final class ThemesView: NSView {
     
@@ -97,12 +96,11 @@ final class ThemesView: NSView {
     }
     
     @objc private func didTapExportButton(_ sender: NSButton) {
-        guard let window = window else { return }
-        FirebaseClient.shared.signIn(presenting: window)
+        viewDelegate.uploadFiles()
     }
     
     @objc private func didTapSignOutButton(_ sender: NSButton) {
-        FirebaseClient.shared.signOut()
+//        FirebaseClient.shared.signOut()
     }
     
     func reloadData() {

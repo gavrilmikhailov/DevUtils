@@ -17,6 +17,8 @@ protocol ViewDelegate: AnyObject {
     func didSelectItems(at indexPaths: Set<IndexPath>)
     
     func didTapRevealInFinder()
+    
+    func uploadFiles()
 }
 
 protocol ViewModelsDataSource: AnyObject {
@@ -58,6 +60,12 @@ extension ViewController: ViewDelegate {
 
     func didTapRevealInFinder() {
         interactor.revealFilesInFinder()
+    }
+    
+    func uploadFiles() {
+        if let window = view.window {
+            interactor.uploadFiles(window: window)
+        }
     }
 }
 

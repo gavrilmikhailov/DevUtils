@@ -1,5 +1,6 @@
 import FirebaseCore
 import FirebaseAuth
+import FirebaseStorage
 import GoogleSignIn
 
 public final class FirebaseClient {
@@ -16,7 +17,7 @@ public final class FirebaseClient {
         GIDSignIn.sharedInstance.handle(url)
     }
     
-    public func signIn(presenting window: NSWindow) {
+    public func signIn(presenting window: NSWindow, completion: (() -> Void)? = nil) {
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
         let gidConfiguration = GIDConfiguration(clientID: clientID)
         GIDSignIn.sharedInstance.signIn(with: gidConfiguration, presenting: window) { user, error in
@@ -31,6 +32,7 @@ public final class FirebaseClient {
                     return
                 }
                 print("Signed in", authResult?.user.email ?? "")
+                completion?()
             }
         }
     }
@@ -41,6 +43,30 @@ public final class FirebaseClient {
             print("Signed out")
         } catch {
             print(error.localizedDescription)
+        }
+    }
+    
+    public func uploadFiles(window: NSWindow, fileURLs: [URL]) {
+        if Auth.auth().currentUser != nil {
+            _uploadFiles(fileURLs: fileURLs)
+        } else {
+            signIn(presenting: window) {
+                self._uploadFiles(fileURLs: fileURLs)
+            }
+        }
+    }
+    
+    private func _uploadFiles(fileURLs: [URL]) {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("Not signed in")
+            return
+        }
+        let storage = Storage.storage()
+        let themesReference = storage.reference().child("themes/" + userID)
+        fileURLs.forEach { url in
+            let themeReference = themesReference.child(url.lastPathComponent)
+            let uploadTask = themeReference.putFile(from: url, metadata: nil)
+            uploadTask.resume()
         }
     }
     
