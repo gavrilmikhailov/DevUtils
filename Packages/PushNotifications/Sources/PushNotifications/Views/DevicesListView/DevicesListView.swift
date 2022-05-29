@@ -28,11 +28,11 @@ struct DevicesListRootView: View {
     weak var delegate: ViewControllerDelegate?
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text("Devices")
             List(viewState.devices) { viewModel in
                 Button {
-                    viewModel.isBooted ? delegate?.shutdownDevice(id: viewModel.id) : delegate?.selectDevice(id: viewModel.id)
+                    delegate?.selectDevice(id: viewModel.id)
                 } label: {
                     ButtonLabelView(
                         name: viewModel.name,

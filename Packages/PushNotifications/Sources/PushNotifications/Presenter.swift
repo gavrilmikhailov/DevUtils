@@ -28,4 +28,8 @@ final class Presenter {
     func presentSelectDevice(id: String?) {
         viewController?.displaySelectDevice(id: id)
     }
+    
+    func presentError(title: String, message: String) {
+        viewController?.displayError(title: title, message: message)
+    }
 }

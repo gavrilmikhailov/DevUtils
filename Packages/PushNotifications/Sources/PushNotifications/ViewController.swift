@@ -12,6 +12,8 @@ protocol ViewControllerDisplayLogic: AnyObject {
     func displayListOfDevices(viewModels: [DeviceViewModel])
     
     func displaySelectDevice(id: String?)
+    
+    func displayError(title: String, message: String)
 }
 
 protocol ViewControllerDelegate: AnyObject {
@@ -22,7 +24,7 @@ protocol ViewControllerDelegate: AnyObject {
     
     func shutdownDevice(id: String)
     
-    func setAppBundleIdentifier(identifier: String)
+    func send(bundleIdentifier: String, payload: String)
 }
 
 final class ViewController: NSViewController {
@@ -59,6 +61,13 @@ extension ViewController: ViewControllerDisplayLogic {
     func displaySelectDevice(id: String?) {
         customView?.configure(deviceID: id)
     }
+    
+    func displayError(title: String, message: String) {
+        let alert = NSAlert()
+        alert.informativeText = message
+        alert.messageText = title
+        alert.runModal()
+    }
 }
 
 extension ViewController: ViewControllerDelegate {
@@ -75,7 +84,7 @@ extension ViewController: ViewControllerDelegate {
         interactor.shutdownDevice(id: id)
     }
     
-    func setAppBundleIdentifier(identifier: String) {
-        interactor.setAppBundleIdentifier(identifier: identifier)
+    func send(bundleIdentifier: String, payload: String) {
+        interactor.send(bundleIdentifier: bundleIdentifier, payload: payload)
     }
 }

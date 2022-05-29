@@ -54,8 +54,29 @@ final class Interactor {
         loadListOfDevices()
     }
     
-    func setAppBundleIdentifier(identifier: String) {
-        appBundleIdentifier = identifier
+    func send(bundleIdentifier: String, payload: String) {
+        let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+        let temporaryFileName = UUID().uuidString
+        let temporaryFileURL = temporaryDirectoryURL.appendingPathComponent(temporaryFileName)
+        guard let selectedDeviceID = selectedDeviceID else {
+            return presenter.presentError(title: "Error", message: "Target device is not selected")
+        }
+        guard !bundleIdentifier.trimmingCharacters(in: .whitespaces).isEmpty else {
+            return presenter.presentError(title: "Error", message: "Target app's bundle identifier is not specified")
+        }
+        guard let data = payload.data(using: .utf8) else {
+            return presenter.presentError(title: "Error", message: "Unable to form data from payload")
+        }
+        do {
+            try data.write(to: temporaryFileURL, options: .atomic)
+        } catch {
+            presenter.presentError(title: "Error", message: error.localizedDescription)
+        }
+        let sendNotificationCommand = "xcrun simctl push \(selectedDeviceID) \(bundleIdentifier) \(temporaryFileURL.path)"
+        print(sendNotificationCommand)
+        if let output = sendNotificationCommand.runAsCommand() {
+            print(output)
+        }
     }
 }
 
