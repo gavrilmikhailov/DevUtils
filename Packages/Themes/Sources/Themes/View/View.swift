@@ -6,6 +6,7 @@
 //
 
 import AppKit
+import FirebaseClient
 
 final class ThemesView: NSView {
     
@@ -45,6 +46,12 @@ final class ThemesView: NSView {
         return button
     }()
     
+    private lazy var signOutButton: NSButton = {
+        let button = NSButton(title: "Sign out", target: self, action: #selector(didTapSignOutButton(_:)))
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     init(frame frameRect: NSRect, viewDelegate: ViewDelegate, viewModelsDataSource: ViewModelsDataSource) {
         self.viewDelegate = viewDelegate
         self.collectionDataSource = CollectionViewDataSource(viewModelsDataSource: viewModelsDataSource)
@@ -64,6 +71,7 @@ final class ThemesView: NSView {
         wantsLayer = true
         addSubview(scrollView)
         addSubview(exportButton)
+        addSubview(signOutButton)
         scrollView.documentView = collectionView
 
         NSLayoutConstraint.activate([
@@ -73,7 +81,10 @@ final class ThemesView: NSView {
             scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
             exportButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            exportButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12)
+            exportButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+            
+            signOutButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            signOutButton.trailingAnchor.constraint(equalTo: exportButton.leadingAnchor, constant: -12)
         ])
         
         DispatchQueue.main.async { [weak self] in
@@ -86,7 +97,12 @@ final class ThemesView: NSView {
     }
     
     @objc private func didTapExportButton(_ sender: NSButton) {
-        
+        guard let window = window else { return }
+        FirebaseClient.shared.signIn(presenting: window)
+    }
+    
+    @objc private func didTapSignOutButton(_ sender: NSButton) {
+        FirebaseClient.shared.signOut()
     }
     
     func reloadData() {

@@ -25,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		6D1B6C4928435CEF0003EE4A /* FirebaseClient */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FirebaseClient; path = Packages/FirebaseClient; sourceTree = "<group>"; };
+		6D1B6C50284375810003EE4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		6D9C9F5B28369C0E00B4DA39 /* PushNotifications */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PushNotifications; path = Packages/PushNotifications; sourceTree = "<group>"; };
 		6DB745B6282AB05900572931 /* Snippets */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Snippets; path = Packages/Snippets; sourceTree = "<group>"; };
 		6DD6C3192802FA08008469FA /* Themes */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Themes; path = Packages/Themes; sourceTree = "<group>"; };
@@ -79,6 +80,7 @@
 		6DFCEBEC2801C18B00D83620 /* DeveloperTools */ = {
 			isa = PBXGroup;
 			children = (
+				6D1B6C50284375810003EE4A /* Info.plist */,
 				6DFCEBFC2801C2D900D83620 /* Home */,
 				6DFCEBED2801C18B00D83620 /* AppDelegate.swift */,
 				6DFCEBF12801C18C00D83620 /* Assets.xcassets */,
@@ -362,6 +364,7 @@
 				DEVELOPMENT_TEAM = RTC3LMZ968;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DeveloperTools/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
@@ -391,6 +394,7 @@
 				DEVELOPMENT_TEAM = RTC3LMZ968;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DeveloperTools/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;

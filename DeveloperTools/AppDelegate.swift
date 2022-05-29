@@ -12,9 +12,7 @@ import FirebaseClient
 final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let client = FirebaseClient()
-        client.initializeApp()
-        // Insert code here to initialize your application
+        FirebaseClient.shared.initializeApp()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -23,5 +21,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
         return true
+    }
+    
+    func application(_ application: NSApplication, open urls: [URL]) {
+        FirebaseClient.shared.handleOpen(url: urls[0])
     }
 }
