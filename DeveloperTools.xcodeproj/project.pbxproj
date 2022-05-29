@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D1B6C4B28435CF70003EE4A /* FirebaseClient in Frameworks */ = {isa = PBXBuildFile; productRef = 6D1B6C4A28435CF70003EE4A /* FirebaseClient */; };
 		6D9C9F5D28369C1B00B4DA39 /* PushNotifications in Frameworks */ = {isa = PBXBuildFile; productRef = 6D9C9F5C28369C1B00B4DA39 /* PushNotifications */; };
 		6DB745B7282AB05900572931 /* Snippets in Resources */ = {isa = PBXBuildFile; fileRef = 6DB745B6282AB05900572931 /* Snippets */; };
 		6DB745B9282AB0A700572931 /* Snippets in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB745B8282AB0A700572931 /* Snippets */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6D1B6C4928435CEF0003EE4A /* FirebaseClient */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FirebaseClient; path = Packages/FirebaseClient; sourceTree = "<group>"; };
 		6D9C9F5B28369C0E00B4DA39 /* PushNotifications */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PushNotifications; path = Packages/PushNotifications; sourceTree = "<group>"; };
 		6DB745B6282AB05900572931 /* Snippets */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Snippets; path = Packages/Snippets; sourceTree = "<group>"; };
 		6DD6C3192802FA08008469FA /* Themes */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Themes; path = Packages/Themes; sourceTree = "<group>"; };
@@ -48,6 +50,7 @@
 				6D9C9F5D28369C1B00B4DA39 /* PushNotifications in Frameworks */,
 				6DFCEC0F2801C30F00D83620 /* JsonPrettifier in Frameworks */,
 				6DB745B9282AB0A700572931 /* Snippets in Frameworks */,
+				6D1B6C4B28435CF70003EE4A /* FirebaseClient in Frameworks */,
 				6DFCEC0D2801C30B00D83620 /* DevToolsCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,6 +123,7 @@
 				6DFCEC082801C2E500D83620 /* DevToolsCore */,
 				6DFCEC092801C2F300D83620 /* JsonPrettifier */,
 				6D9C9F5B28369C0E00B4DA39 /* PushNotifications */,
+				6D1B6C4928435CEF0003EE4A /* FirebaseClient */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -153,6 +157,7 @@
 				6DD6C31A2802FA1D008469FA /* Themes */,
 				6DB745B8282AB0A700572931 /* Snippets */,
 				6D9C9F5C28369C1B00B4DA39 /* PushNotifications */,
+				6D1B6C4A28435CF70003EE4A /* FirebaseClient */,
 			);
 			productName = DeveloperTools;
 			productReference = 6DFCEBEA2801C18B00D83620 /* DeveloperTools.app */;
@@ -426,6 +431,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6D1B6C4A28435CF70003EE4A /* FirebaseClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseClient;
+		};
 		6D9C9F5C28369C1B00B4DA39 /* PushNotifications */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PushNotifications;
