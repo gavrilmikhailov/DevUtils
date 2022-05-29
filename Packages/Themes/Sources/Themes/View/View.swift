@@ -1,13 +1,13 @@
 //
-//  File.swift
+//  View.swift
 //  
 //
-//  Created by Гавриил Михайлов on 02.05.2022.
+//  Created by Гавриил Михайлов on 29.05.2022.
 //
 
 import AppKit
 
-final class CustomView: NSView {
+final class ThemesView: NSView {
     
     private let collectionDataSource: CollectionViewDataSource
     private let collectionDelegate: CollectionViewDelegate
@@ -39,6 +39,12 @@ final class CustomView: NSView {
         return scrollView
     }()
     
+    private lazy var exportButton: NSButton = {
+        let button = NSButton(title: "Export", target: self, action: #selector(didTapExportButton(_:)))
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     init(frame frameRect: NSRect, viewDelegate: ViewDelegate, viewModelsDataSource: ViewModelsDataSource) {
         self.viewDelegate = viewDelegate
         self.collectionDataSource = CollectionViewDataSource(viewModelsDataSource: viewModelsDataSource)
@@ -57,13 +63,17 @@ final class CustomView: NSView {
     private func setupLayout() {
         wantsLayer = true
         addSubview(scrollView)
+        addSubview(exportButton)
         scrollView.documentView = collectionView
 
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            exportButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            exportButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12)
         ])
         
         DispatchQueue.main.async { [weak self] in
@@ -73,6 +83,10 @@ final class CustomView: NSView {
     
     @objc private func revealInFinder() {
         viewDelegate.didTapRevealInFinder()
+    }
+    
+    @objc private func didTapExportButton(_ sender: NSButton) {
+        
     }
     
     func reloadData() {

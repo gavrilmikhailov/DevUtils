@@ -6,28 +6,15 @@ public final class FirebaseClient {
     public init() {}
     
     public func initializeApp() {
+        _initializeApp()
+    }
+    
+    private func _initializeApp() {
         guard let configurationFileURL = Bundle.module.url(forResource: "GoogleService-Info", withExtension: "plist"),
-              let options = FirebaseOptions(contentsOfFile: configurationFileURL.path) else {
-            print("Firebase App configuration failed")
-            return
+              let options = FirebaseOptions(contentsOfFile: configurationFileURL.path)
+        else {
+            fatalError("Firebase configuration failed")
         }
         FirebaseApp.configure(options: options)
-        Auth.auth().signIn(withEmail: "gavrilmikhailov@gmail.com", password: "") { result, error in
-            if let error = error {
-                print(error.localizedDescription)
-                return
-            }
-            if let result = result {
-                result.user.getIDTokenResult(forcingRefresh: false) { result, error in
-                    if let error = error {
-                        print(error.localizedDescription)
-                        return
-                    }
-                    if let result = result {
-                        print("Token", result.token)
-                    }
-                }
-            }
-        }
     }
 }

@@ -26,7 +26,7 @@ protocol ViewModelsDataSource: AnyObject {
 final class ViewController: NSViewController, ViewModelsDataSource {
 
     private let interactor: Interactor
-    private lazy var customView = view as! CustomView
+    private lazy var customView = view as! ThemesView
     var viewModels: [CollectionItemViewModel]
 
     init(interactor: Interactor) {
@@ -36,7 +36,7 @@ final class ViewController: NSViewController, ViewModelsDataSource {
     }
     
     override func loadView() {
-        view = CustomView(frame: .zero, viewDelegate: self, viewModelsDataSource: self)
+        view = ThemesView(frame: .zero, viewDelegate: self, viewModelsDataSource: self)
     }
     
     override func viewDidLoad() {
