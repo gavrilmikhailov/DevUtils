@@ -8,10 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		6D1B6C4B28435CF70003EE4A /* FirebaseClient in Frameworks */ = {isa = PBXBuildFile; productRef = 6D1B6C4A28435CF70003EE4A /* FirebaseClient */; };
-		6D9C9F5D28369C1B00B4DA39 /* PushNotifications in Frameworks */ = {isa = PBXBuildFile; productRef = 6D9C9F5C28369C1B00B4DA39 /* PushNotifications */; };
-		6DB745B7282AB05900572931 /* Snippets in Resources */ = {isa = PBXBuildFile; fileRef = 6DB745B6282AB05900572931 /* Snippets */; };
-		6DB745B9282AB0A700572931 /* Snippets in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB745B8282AB0A700572931 /* Snippets */; };
-		6DD6C31B2802FA1D008469FA /* Themes in Frameworks */ = {isa = PBXBuildFile; productRef = 6DD6C31A2802FA1D008469FA /* Themes */; };
+		6DEFE52A28454C65004253BB /* DevToolsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6DEFE52928454C65004253BB /* DevToolsCore */; };
+		6DEFE52C28454C6A004253BB /* JsonPrettifier in Frameworks */ = {isa = PBXBuildFile; productRef = 6DEFE52B28454C6A004253BB /* JsonPrettifier */; };
+		6DEFE52E28454C6E004253BB /* PushNotifications in Frameworks */ = {isa = PBXBuildFile; productRef = 6DEFE52D28454C6E004253BB /* PushNotifications */; };
+		6DEFE53028454C73004253BB /* Snippets in Frameworks */ = {isa = PBXBuildFile; productRef = 6DEFE52F28454C73004253BB /* Snippets */; };
+		6DEFE53228454C77004253BB /* Themes in Frameworks */ = {isa = PBXBuildFile; productRef = 6DEFE53128454C77004253BB /* Themes */; };
 		6DFCEBEE2801C18B00D83620 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFCEBED2801C18B00D83620 /* AppDelegate.swift */; };
 		6DFCEBF22801C18C00D83620 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DFCEBF12801C18C00D83620 /* Assets.xcassets */; };
 		6DFCEBF52801C18C00D83620 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DFCEBF32801C18C00D83620 /* Main.storyboard */; };
@@ -19,16 +20,16 @@
 		6DFCEC042801C2D900D83620 /* HomeControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFCEBFF2801C2D900D83620 /* HomeControlsView.swift */; };
 		6DFCEC052801C2D900D83620 /* HomeTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFCEC012801C2D900D83620 /* HomeTabView.swift */; };
 		6DFCEC062801C2D900D83620 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFCEC022801C2D900D83620 /* HomeViewController.swift */; };
-		6DFCEC0D2801C30B00D83620 /* DevToolsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6DFCEC0C2801C30B00D83620 /* DevToolsCore */; };
-		6DFCEC0F2801C30F00D83620 /* JsonPrettifier in Frameworks */ = {isa = PBXBuildFile; productRef = 6DFCEC0E2801C30F00D83620 /* JsonPrettifier */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6D1B6C4928435CEF0003EE4A /* FirebaseClient */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FirebaseClient; path = Packages/FirebaseClient; sourceTree = "<group>"; };
 		6D1B6C50284375810003EE4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		6D9C9F5B28369C0E00B4DA39 /* PushNotifications */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PushNotifications; path = Packages/PushNotifications; sourceTree = "<group>"; };
-		6DB745B6282AB05900572931 /* Snippets */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Snippets; path = Packages/Snippets; sourceTree = "<group>"; };
-		6DD6C3192802FA08008469FA /* Themes */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Themes; path = Packages/Themes; sourceTree = "<group>"; };
+		6DEFE52428454C39004253BB /* DevToolsCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DevToolsCore; path = Packages/DevToolsCore; sourceTree = "<group>"; };
+		6DEFE52528454C43004253BB /* JsonPrettifier */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = JsonPrettifier; path = Packages/JsonPrettifier; sourceTree = "<group>"; };
+		6DEFE52628454C4B004253BB /* PushNotifications */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PushNotifications; path = Packages/PushNotifications; sourceTree = "<group>"; };
+		6DEFE52728454C55004253BB /* Snippets */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Snippets; path = Packages/Snippets; sourceTree = "<group>"; };
+		6DEFE52828454C5E004253BB /* Themes */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Themes; path = Packages/Themes; sourceTree = "<group>"; };
 		6DFCEBEA2801C18B00D83620 /* DeveloperTools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeveloperTools.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DFCEBED2801C18B00D83620 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6DFCEBF12801C18C00D83620 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -38,8 +39,6 @@
 		6DFCEBFF2801C2D900D83620 /* HomeControlsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeControlsView.swift; sourceTree = "<group>"; };
 		6DFCEC012801C2D900D83620 /* HomeTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabView.swift; sourceTree = "<group>"; };
 		6DFCEC022801C2D900D83620 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		6DFCEC082801C2E500D83620 /* DevToolsCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DevToolsCore; path = Packages/DevToolsCore; sourceTree = "<group>"; };
-		6DFCEC092801C2F300D83620 /* JsonPrettifier */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = JsonPrettifier; path = Packages/JsonPrettifier; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,12 +46,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6DD6C31B2802FA1D008469FA /* Themes in Frameworks */,
-				6D9C9F5D28369C1B00B4DA39 /* PushNotifications in Frameworks */,
-				6DFCEC0F2801C30F00D83620 /* JsonPrettifier in Frameworks */,
-				6DB745B9282AB0A700572931 /* Snippets in Frameworks */,
+				6DEFE53228454C77004253BB /* Themes in Frameworks */,
 				6D1B6C4B28435CF70003EE4A /* FirebaseClient in Frameworks */,
-				6DFCEC0D2801C30B00D83620 /* DevToolsCore in Frameworks */,
+				6DEFE52C28454C6A004253BB /* JsonPrettifier in Frameworks */,
+				6DEFE52A28454C65004253BB /* DevToolsCore in Frameworks */,
+				6DEFE53028454C73004253BB /* Snippets in Frameworks */,
+				6DEFE52E28454C6E004253BB /* PushNotifications in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,12 +119,12 @@
 		6DFCEC072801C2E500D83620 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				6DB745B6282AB05900572931 /* Snippets */,
-				6DD6C3192802FA08008469FA /* Themes */,
-				6DFCEC082801C2E500D83620 /* DevToolsCore */,
-				6DFCEC092801C2F300D83620 /* JsonPrettifier */,
-				6D9C9F5B28369C0E00B4DA39 /* PushNotifications */,
 				6D1B6C4928435CEF0003EE4A /* FirebaseClient */,
+				6DEFE52428454C39004253BB /* DevToolsCore */,
+				6DEFE52528454C43004253BB /* JsonPrettifier */,
+				6DEFE52628454C4B004253BB /* PushNotifications */,
+				6DEFE52728454C55004253BB /* Snippets */,
+				6DEFE52828454C5E004253BB /* Themes */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -154,12 +153,12 @@
 			);
 			name = DeveloperTools;
 			packageProductDependencies = (
-				6DFCEC0C2801C30B00D83620 /* DevToolsCore */,
-				6DFCEC0E2801C30F00D83620 /* JsonPrettifier */,
-				6DD6C31A2802FA1D008469FA /* Themes */,
-				6DB745B8282AB0A700572931 /* Snippets */,
-				6D9C9F5C28369C1B00B4DA39 /* PushNotifications */,
 				6D1B6C4A28435CF70003EE4A /* FirebaseClient */,
+				6DEFE52928454C65004253BB /* DevToolsCore */,
+				6DEFE52B28454C6A004253BB /* JsonPrettifier */,
+				6DEFE52D28454C6E004253BB /* PushNotifications */,
+				6DEFE52F28454C73004253BB /* Snippets */,
+				6DEFE53128454C77004253BB /* Themes */,
 			);
 			productName = DeveloperTools;
 			productReference = 6DFCEBEA2801C18B00D83620 /* DeveloperTools.app */;
@@ -205,7 +204,6 @@
 			files = (
 				6DFCEBF22801C18C00D83620 /* Assets.xcassets in Resources */,
 				6DFCEBF52801C18C00D83620 /* Main.storyboard in Resources */,
-				6DB745B7282AB05900572931 /* Snippets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,25 +437,25 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = FirebaseClient;
 		};
-		6D9C9F5C28369C1B00B4DA39 /* PushNotifications */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = PushNotifications;
-		};
-		6DB745B8282AB0A700572931 /* Snippets */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Snippets;
-		};
-		6DD6C31A2802FA1D008469FA /* Themes */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Themes;
-		};
-		6DFCEC0C2801C30B00D83620 /* DevToolsCore */ = {
+		6DEFE52928454C65004253BB /* DevToolsCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DevToolsCore;
 		};
-		6DFCEC0E2801C30F00D83620 /* JsonPrettifier */ = {
+		6DEFE52B28454C6A004253BB /* JsonPrettifier */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = JsonPrettifier;
+		};
+		6DEFE52D28454C6E004253BB /* PushNotifications */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PushNotifications;
+		};
+		6DEFE52F28454C73004253BB /* Snippets */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Snippets;
+		};
+		6DEFE53128454C77004253BB /* Themes */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Themes;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
