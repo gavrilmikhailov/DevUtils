@@ -15,6 +15,10 @@
 		6DEFE53228454C77004253BB /* Themes in Frameworks */ = {isa = PBXBuildFile; productRef = 6DEFE53128454C77004253BB /* Themes */; };
 		6DEFE53528455176004253BB /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEFE53428455176004253BB /* PreferencesViewController.swift */; };
 		6DEFE53728455196004253BB /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEFE53628455196004253BB /* PreferencesView.swift */; };
+		6DEFE53928455E47004253BB /* PreferencesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEFE53828455E47004253BB /* PreferencesInteractor.swift */; };
+		6DEFE53B28455E52004253BB /* PreferencesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEFE53A28455E52004253BB /* PreferencesPresenter.swift */; };
+		6DEFE53D28455E59004253BB /* PreferencesBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEFE53C28455E59004253BB /* PreferencesBuilder.swift */; };
+		6DEFE54128455F8B004253BB /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEFE54028455F8B004253BB /* UserViewModel.swift */; };
 		6DFCEBEE2801C18B00D83620 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFCEBED2801C18B00D83620 /* AppDelegate.swift */; };
 		6DFCEBF22801C18C00D83620 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DFCEBF12801C18C00D83620 /* Assets.xcassets */; };
 		6DFCEBF52801C18C00D83620 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DFCEBF32801C18C00D83620 /* Main.storyboard */; };
@@ -34,6 +38,10 @@
 		6DEFE52828454C5E004253BB /* Themes */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Themes; path = Packages/Themes; sourceTree = "<group>"; };
 		6DEFE53428455176004253BB /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		6DEFE53628455196004253BB /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
+		6DEFE53828455E47004253BB /* PreferencesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesInteractor.swift; sourceTree = "<group>"; };
+		6DEFE53A28455E52004253BB /* PreferencesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesPresenter.swift; sourceTree = "<group>"; };
+		6DEFE53C28455E59004253BB /* PreferencesBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesBuilder.swift; sourceTree = "<group>"; };
+		6DEFE54028455F8B004253BB /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		6DFCEBEA2801C18B00D83620 /* DeveloperTools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeveloperTools.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DFCEBED2801C18B00D83620 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6DFCEBF12801C18C00D83620 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,10 +73,30 @@
 		6DEFE53328455156004253BB /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
+				6DEFE53F28455F68004253BB /* View */,
+				6DEFE53E28455F62004253BB /* ViewModel */,
+				6DEFE53C28455E59004253BB /* PreferencesBuilder.swift */,
+				6DEFE53828455E47004253BB /* PreferencesInteractor.swift */,
+				6DEFE53A28455E52004253BB /* PreferencesPresenter.swift */,
 				6DEFE53428455176004253BB /* PreferencesViewController.swift */,
-				6DEFE53628455196004253BB /* PreferencesView.swift */,
 			);
 			path = Preferences;
+			sourceTree = "<group>";
+		};
+		6DEFE53E28455F62004253BB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6DEFE54028455F8B004253BB /* UserViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6DEFE53F28455F68004253BB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6DEFE53628455196004253BB /* PreferencesView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		6DFCEBE12801C18B00D83620 = {
@@ -228,9 +256,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DEFE53B28455E52004253BB /* PreferencesPresenter.swift in Sources */,
+				6DEFE54128455F8B004253BB /* UserViewModel.swift in Sources */,
 				6DFCEC032801C2D900D83620 /* HomeControlsViewState.swift in Sources */,
 				6DFCEC042801C2D900D83620 /* HomeControlsView.swift in Sources */,
 				6DFCEC052801C2D900D83620 /* HomeTabView.swift in Sources */,
+				6DEFE53D28455E59004253BB /* PreferencesBuilder.swift in Sources */,
+				6DEFE53928455E47004253BB /* PreferencesInteractor.swift in Sources */,
 				6DFCEBEE2801C18B00D83620 /* AppDelegate.swift in Sources */,
 				6DFCEC062801C2D900D83620 /* HomeViewController.swift in Sources */,
 				6DEFE53528455176004253BB /* PreferencesViewController.swift in Sources */,

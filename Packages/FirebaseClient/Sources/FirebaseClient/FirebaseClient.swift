@@ -46,7 +46,7 @@ public final class FirebaseClient {
         guard let currentUser = Auth.auth().currentUser else {
             return nil
         }
-        return UserModel(email: currentUser.email, name: currentUser.displayName)
+        return UserModel(email: currentUser.email, name: currentUser.displayName, photo: currentUser.photoURL)
     }
     
     public func signOut() {

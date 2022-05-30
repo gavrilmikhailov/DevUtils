@@ -101,7 +101,8 @@ extension HomeViewController: HomeViewControllerDelegate {
     }
     
     @objc func openPreferences() {
-        let wc = NSWindowController(window: NSWindow(contentViewController: PreferencesViewController()))
+        let vc = PreferencesBuilder().build()
+        let wc = NSWindowController(window: NSWindow(contentViewController: vc))
         wc.showWindow(self)
     }
 }
