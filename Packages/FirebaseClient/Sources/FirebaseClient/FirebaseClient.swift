@@ -10,7 +10,12 @@ public final class FirebaseClient {
     private init() {}
     
     public func initializeApp() {
-        _initializeApp()
+        guard let configurationFileURL = Bundle.module.url(forResource: "GoogleService-Info", withExtension: "plist"),
+              let options = FirebaseOptions(contentsOfFile: configurationFileURL.path)
+        else {
+            fatalError("Firebase configuration failed")
+        }
+        FirebaseApp.configure(options: options)
     }
     
     public func handleOpen(url: URL) {
@@ -35,6 +40,13 @@ public final class FirebaseClient {
                 completion?()
             }
         }
+    }
+    
+    public func getCurrentUser() -> UserModel? {
+        guard let currentUser = Auth.auth().currentUser else {
+            return nil
+        }
+        return UserModel(email: currentUser.email, name: currentUser.displayName)
     }
     
     public func signOut() {
@@ -71,14 +83,5 @@ public final class FirebaseClient {
             }
             task.resume()
         }
-    }
-    
-    private func _initializeApp() {
-        guard let configurationFileURL = Bundle.module.url(forResource: "GoogleService-Info", withExtension: "plist"),
-              let options = FirebaseOptions(contentsOfFile: configurationFileURL.path)
-        else {
-            fatalError("Firebase configuration failed")
-        }
-        FirebaseApp.configure(options: options)
     }
 }
