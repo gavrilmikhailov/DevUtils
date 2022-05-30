@@ -16,6 +16,8 @@ protocol HomeViewControllerDelegate: AnyObject {
     var modules: [ModuleProtocol] { get }
 
     func selectTab(at index: Int)
+    
+    func openPreferences()
 }
 
 final class HomeViewController: NSViewController {
@@ -91,5 +93,9 @@ extension HomeViewController: HomeViewControllerDelegate {
     func selectTab(at index: Int) {
         tabViewController?.selectedTabViewItemIndex = index
         homeControlsViewState.selectedRowIndex = index
+    }
+    
+    func openPreferences() {
+        print("Hello, world!")
     }
 }
