@@ -81,6 +81,11 @@ final class HomeViewController: NSViewController {
         let menuItem = NSMenuItem(title: "", action: nil, keyEquivalent: "")
         menuItem.submenu = submenu
         NSApplication.shared.mainMenu?.insertItem(menuItem, at: 3)
+
+        if let preferencesItem = NSApplication.shared.mainMenu?.item(withTitle: "DeveloperTools")?.submenu?.item(withTag: 2) {
+            preferencesItem.action = #selector(openPreferences)
+            preferencesItem.isEnabled = true
+        }
     }
     
     @objc private func navigateToModule(_ sender: NSMenuItem) {
@@ -95,7 +100,8 @@ extension HomeViewController: HomeViewControllerDelegate {
         homeControlsViewState.selectedRowIndex = index
     }
     
-    func openPreferences() {
-        print("Hello, world!")
+    @objc func openPreferences() {
+        let wc = NSWindowController(window: NSWindow(contentViewController: PreferencesViewController()))
+        wc.showWindow(self)
     }
 }
