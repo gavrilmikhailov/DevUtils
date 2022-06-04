@@ -8,10 +8,23 @@
 import AppKit
 import DevToolsCore
 
+protocol ViewControllerDisplayLogic: AnyObject {
+    func displayPreviouslyConvertedString(value: String)
+    func displayPreviousDividerOffset(value: Double)
+    func displaySetIndentation(mode: Indentation)
+    func displayConvertStringToPrettifiedJSON(result: String)
+}
+
+protocol ViewControllerDelegate: AnyObject {
+    func formatString(value: String)
+    func setIndentation(mode: Indentation)
+    func setDividerOffset(value: CGFloat)
+}
+
 final class ViewController: NSViewController {
     
     private let interactor: Interactor
-    private let debouncer = Debouncer(queue: DispatchQueue.main)
+
     private lazy var customView = view as! TestJsonPrettifierView
 
     init(title: String, interactor: Interactor) {
@@ -21,45 +34,51 @@ final class ViewController: NSViewController {
     }
     
     override func loadView() {
-        let customView = TestJsonPrettifierView(frame: .zero, viewController: self)
-        customView.convertButton.target = self
-        customView.convertButton.action = #selector(didTapConvert(_:))
-        self.view = customView
+        view = TestJsonPrettifierView(frame: .zero, delegate: self)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        interactor.setIndentation(mode: nil)
+        interactor.getPreviousDividerOffset()
+        interactor.getPreviouslyConvertedString()
     }
     
     required init?(coder: NSCoder) {
-        nil
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension ViewController: ViewControllerDisplayLogic {
+    func displayPreviouslyConvertedString(value: String) {
+        customView.configure(previouslyConvertedString: value)
     }
     
-    @objc private func didTapConvert(_ sender: NSButton) {
-        convertStringToPrettifiedJSON()
+    func displayPreviousDividerOffset(value: Double) {
+        customView.configure(dividerOffset: value)
+    }
+    
+    func displaySetIndentation(mode: Indentation) {
+        customView.configure(indentationMode: mode)
     }
     
     func displayConvertStringToPrettifiedJSON(result: String) {
-        DispatchQueue.main.async { [weak self] in
-            self?.customView.outputTextField.stringValue = result
+        DispatchQueue.main.async { [weak customView] in
+            customView?.configure(formattedString: result)
         }
-    }
-    
-    private func convertStringToPrettifiedJSON() {
-        interactor.convertStringToPrettifiedJSON(str: customView.inputTextField.stringValue)
     }
 }
 
-extension ViewController: TextFieldDelegate {
-    
-    func didPaste() {
-        convertStringToPrettifiedJSON()
+extension ViewController: ViewControllerDelegate {
+    func formatString(value: String) {
+        interactor.convertStringToPrettifiedJSON(str: value)
     }
-}
-
-extension ViewController: NSSplitViewDelegate {
     
-    func splitViewDidResizeSubviews(_ notification: Notification) {
-        debouncer.run { [weak self] in
-            guard let self = self else { return }
-            let offset = self.customView.inputTextField.frame.maxX - self.customView.splitView.frame.midX + 16
-            UserDefaults.standard.set(offset, forKey: "dividerOffset")
-        }
+    func setIndentation(mode: Indentation) {
+        interactor.setIndentation(mode: mode)
+    }
+    
+    func setDividerOffset(value: CGFloat) {
+        interactor.setDividerOffset(value: value)
     }
 }

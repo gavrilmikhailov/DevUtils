@@ -15,23 +15,11 @@ public final class TextView: NSTextView {
     
     weak var textFieldDelegate: TextFieldDelegate?
     
-    public override func becomeFirstResponder() -> Bool {
-        print("TextView became first responder")
-        return super.becomeFirstResponder()
-    }
-    
-    public override func resignFirstResponder() -> Bool {
-        print("TextView resigned first responder")
-        return super.resignFirstResponder()
-    }
-    
     public override func insertNewline(_ sender: Any?) {
-        print(#function)
         insertNewlineIgnoringFieldEditor(nil)
     }
     
     public override func insertTab(_ sender: Any?) {
-        print(#function)
         insertTabIgnoringFieldEditor(nil)
     }
     

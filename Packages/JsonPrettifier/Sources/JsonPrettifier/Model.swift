@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Model.swift
 //  
 //
 //  Created by Гавриил Михайлов on 09.04.2022.
