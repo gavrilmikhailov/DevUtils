@@ -74,7 +74,7 @@ final class PushNotificationsView: NSView {
         NSLayoutConstraint.activate([
             devicesListView.topAnchor.constraint(equalTo: topAnchor),
             devicesListView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
-            devicesListView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
+            devicesListView.bottomAnchor.constraint(equalTo: sendButton.topAnchor, constant: -12),
             devicesListView.widthAnchor.constraint(equalToConstant: 280),
             
             appBundleIdenfitierLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),

@@ -37,7 +37,7 @@ final class Interactor {
             self.presenter.presentConvertStringToPrettifiedJSON(result: converted)
         }
     }
-    
+
     func setIndentation(mode: Indentation?) {
         if let mode = mode {
             switch mode {
@@ -71,7 +71,12 @@ final class Interactor {
         case .tabs:
             indent = "\t"
         }
-        let jsSource = "var prettifyJson = function(str, indent) { return JSON.stringify(JSON.parse(str), null, indent) }"
+        let jsSource =
+        """
+        var prettifyJson = function(str, indent) {
+            return JSON.stringify(JSON.parse(str), null, indent)
+        }
+        """
         let jsContext = JSContext()
         jsContext?.evaluateScript(jsSource)
         let jsFunc = jsContext?.objectForKeyedSubscript("prettifyJson")

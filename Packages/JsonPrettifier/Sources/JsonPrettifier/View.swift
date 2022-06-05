@@ -127,7 +127,6 @@ final class TestJsonPrettifierView: NSView {
     }
     
     func configure(dividerOffset: Double) {
-        print(dividerOffset)
         DispatchQueue.main.async { [unowned splitView] in
             splitView.setPosition(splitView.bounds.midX + dividerOffset, ofDividerAt: 0)
         }
