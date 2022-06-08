@@ -11,6 +11,8 @@ import JsonPrettifier
 import Snippets
 import Themes
 import PushNotifications
+import UserData
+import Cleaner
 
 protocol HomeViewControllerDelegate: AnyObject {
     var modules: [ModuleProtocol] { get }
@@ -27,10 +29,12 @@ final class HomeViewController: NSViewController {
     }
 
     let modules: [ModuleProtocol] = [
-        ThemesModule(),
+        UserDataModule(),
+//        ThemesModule(),
         JsonPrettifierModule(),
-        SnippetsModule(),
-        PushNotificationsModule()
+//        SnippetsModule(),
+        PushNotificationsModule(),
+        CleanerModule()
     ]
     private var homeControlsViewState: HomeControlsViewState = HomeControlsViewState()
     private weak var tabViewController: HomeTabView?
@@ -40,6 +44,10 @@ final class HomeViewController: NSViewController {
         setupControlsView()
         setupTabView()
         setupNavigationMenu()
+    }
+    
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
     }
     
     private func setupControlsView() {

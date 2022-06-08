@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6D1B6C4B28435CF70003EE4A /* FirebaseClient in Frameworks */ = {isa = PBXBuildFile; productRef = 6D1B6C4A28435CF70003EE4A /* FirebaseClient */; };
+		6DBE6209284C66FF003B73C7 /* UserData in Frameworks */ = {isa = PBXBuildFile; productRef = 6DBE6208284C66FF003B73C7 /* UserData */; };
+		6DBE620C284CE30D003B73C7 /* Cleaner in Frameworks */ = {isa = PBXBuildFile; productRef = 6DBE620B284CE30D003B73C7 /* Cleaner */; };
 		6DEFE52A28454C65004253BB /* DevToolsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6DEFE52928454C65004253BB /* DevToolsCore */; };
 		6DEFE52C28454C6A004253BB /* JsonPrettifier in Frameworks */ = {isa = PBXBuildFile; productRef = 6DEFE52B28454C6A004253BB /* JsonPrettifier */; };
 		6DEFE52E28454C6E004253BB /* PushNotifications in Frameworks */ = {isa = PBXBuildFile; productRef = 6DEFE52D28454C6E004253BB /* PushNotifications */; };
@@ -31,6 +33,8 @@
 /* Begin PBXFileReference section */
 		6D1B6C4928435CEF0003EE4A /* FirebaseClient */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FirebaseClient; path = Packages/FirebaseClient; sourceTree = "<group>"; };
 		6D1B6C50284375810003EE4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6DBE6207284C66DD003B73C7 /* UserData */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = UserData; path = Packages/UserData; sourceTree = "<group>"; };
+		6DBE620A284CE297003B73C7 /* Cleaner */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Cleaner; path = Packages/Cleaner; sourceTree = "<group>"; };
 		6DEFE52428454C39004253BB /* DevToolsCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DevToolsCore; path = Packages/DevToolsCore; sourceTree = "<group>"; };
 		6DEFE52528454C43004253BB /* JsonPrettifier */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = JsonPrettifier; path = Packages/JsonPrettifier; sourceTree = "<group>"; };
 		6DEFE52628454C4B004253BB /* PushNotifications */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PushNotifications; path = Packages/PushNotifications; sourceTree = "<group>"; };
@@ -59,10 +63,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DEFE53228454C77004253BB /* Themes in Frameworks */,
+				6DBE620C284CE30D003B73C7 /* Cleaner in Frameworks */,
 				6D1B6C4B28435CF70003EE4A /* FirebaseClient in Frameworks */,
 				6DEFE52C28454C6A004253BB /* JsonPrettifier in Frameworks */,
 				6DEFE52A28454C65004253BB /* DevToolsCore in Frameworks */,
 				6DEFE53028454C73004253BB /* Snippets in Frameworks */,
+				6DBE6209284C66FF003B73C7 /* UserData in Frameworks */,
 				6DEFE52E28454C6E004253BB /* PushNotifications in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -167,6 +173,8 @@
 				6DEFE52628454C4B004253BB /* PushNotifications */,
 				6DEFE52728454C55004253BB /* Snippets */,
 				6DEFE52828454C5E004253BB /* Themes */,
+				6DBE6207284C66DD003B73C7 /* UserData */,
+				6DBE620A284CE297003B73C7 /* Cleaner */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -201,6 +209,8 @@
 				6DEFE52D28454C6E004253BB /* PushNotifications */,
 				6DEFE52F28454C73004253BB /* Snippets */,
 				6DEFE53128454C77004253BB /* Themes */,
+				6DBE6208284C66FF003B73C7 /* UserData */,
+				6DBE620B284CE30D003B73C7 /* Cleaner */,
 			);
 			productName = DeveloperTools;
 			productReference = 6DFCEBEA2801C18B00D83620 /* DeveloperTools.app */;
@@ -214,7 +224,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 1330;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					6DFCEBE92801C18B00D83620 = {
 						CreatedOnToolsVersion = 13.3;
@@ -317,6 +327,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -377,6 +388,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -407,6 +419,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = RTC3LMZ968;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -437,6 +450,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = RTC3LMZ968;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -484,6 +498,14 @@
 		6D1B6C4A28435CF70003EE4A /* FirebaseClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FirebaseClient;
+		};
+		6DBE6208284C66FF003B73C7 /* UserData */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UserData;
+		};
+		6DBE620B284CE30D003B73C7 /* Cleaner */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Cleaner;
 		};
 		6DEFE52928454C65004253BB /* DevToolsCore */ = {
 			isa = XCSwiftPackageProductDependency;

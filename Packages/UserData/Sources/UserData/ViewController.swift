@@ -1,0 +1,83 @@
+//
+//  ViewController.swift
+//  
+//
+//  Created by Гавриил Михайлов on 05.06.2022.
+//
+
+import AppKit
+
+protocol ViewControllerDisplayLogic: AnyObject {
+    
+    func displayUserThemes(viewModels: [ListViewRowViewModel])
+    
+    func displayUserSnippets(viewModels: [ListViewRowViewModel])
+    
+    func displayLastUpdateDate(text: String)
+}
+
+protocol ViewControllerDelegate: AnyObject {
+    
+    func revealInFinder(url: URL)
+    
+    func exportArchive()
+    
+    func exportCloud()
+}
+
+final class ViewController: NSViewController {
+    
+    private let interactor: Interactor
+    private lazy var customView = view as? UserDataView
+    
+    init(interactor: Interactor) {
+        self.interactor = interactor
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    override func loadView() {
+        view = UserDataView(frame: .zero, delegate: self)
+    }
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        interactor.loadFiles()
+        interactor.loadLastUpdateDate()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension ViewController: ViewControllerDisplayLogic {
+    
+    func displayUserThemes(viewModels: [ListViewRowViewModel]) {
+        customView?.configure(userThemes: viewModels)
+    }
+    
+    func displayUserSnippets(viewModels: [ListViewRowViewModel]) {
+        customView?.configure(userSnippets: viewModels)
+    }
+    
+    func displayLastUpdateDate(text: String) {
+        customView?.configure(lastUpdateDate: text)
+    }
+}
+
+extension ViewController: ViewControllerDelegate {
+    
+    func revealInFinder(url: URL) {
+        interactor.revealInFinder(url: url)
+    }
+    
+    func exportArchive() {
+        interactor.exportArchive()
+    }
+    
+    func exportCloud() {
+        if let window = view.window {
+            interactor.exportCloud(window: window)
+        }
+    }
+}
