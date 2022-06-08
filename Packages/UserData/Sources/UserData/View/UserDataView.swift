@@ -52,6 +52,32 @@ final class UserDataView: NSView {
         return button
     }()
     
+    private lazy var importLabel: NSTextField = {
+        let textField = NSTextField(labelWithString: "Import")
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
+    private lazy var importFilesRadioButton: NSButton = {
+        let button = NSButton(radioButtonWithTitle: "Files", target: self, action: #selector(importFilesRadioButtonTapped))
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.state = .on
+        return button
+    }()
+    
+    private lazy var importCloudRadioButton: NSButton = {
+        let button = NSButton(radioButtonWithTitle: "Cloud", target: self, action: #selector(importCloudRadioButtonTapped))
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.state = .off
+        return button
+    }()
+    
+    private lazy var importButton: NSButton = {
+        let button = NSButton(title: "Import", target: self, action: #selector(importButtonTapped))
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     private lazy var lastUpdateDateLabel: NSTextField = {
         let textField = NSTextField(labelWithString: "")
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -75,6 +101,10 @@ final class UserDataView: NSView {
         addSubview(exportArchiveRadioButton)
         addSubview(exportCloudRadioButton)
         addSubview(exportButton)
+        addSubview(importLabel)
+        addSubview(importFilesRadioButton)
+        addSubview(importCloudRadioButton)
+        addSubview(importButton)
         addSubview(lastUpdateDateLabel)
         
         NSLayoutConstraint.activate([
@@ -91,8 +121,8 @@ final class UserDataView: NSView {
             exportLabel.bottomAnchor.constraint(equalTo: exportArchiveRadioButton.topAnchor, constant: -12),
             exportLabel.leadingAnchor.constraint(equalTo: exportArchiveRadioButton.leadingAnchor),
 
-            exportArchiveRadioButton.bottomAnchor.constraint(equalTo: centerYAnchor),
-            exportArchiveRadioButton.leadingAnchor.constraint(equalTo: userThemesListView.trailingAnchor, constant: 12),
+            exportArchiveRadioButton.bottomAnchor.constraint(equalTo: centerYAnchor, constant: -12),
+            exportArchiveRadioButton.leadingAnchor.constraint(equalTo: userThemesListView.trailingAnchor, constant: 24),
             
             exportCloudRadioButton.bottomAnchor.constraint(equalTo: exportArchiveRadioButton.bottomAnchor),
             exportCloudRadioButton.leadingAnchor.constraint(equalTo: exportArchiveRadioButton.trailingAnchor, constant: 12),
@@ -100,8 +130,20 @@ final class UserDataView: NSView {
             exportButton.centerYAnchor.constraint(equalTo: exportArchiveRadioButton.centerYAnchor),
             exportButton.leadingAnchor.constraint(equalTo: exportCloudRadioButton.trailingAnchor, constant: 12),
             
-            lastUpdateDateLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            lastUpdateDateLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
+            importLabel.topAnchor.constraint(equalTo: centerYAnchor, constant: 12),
+            importLabel.leadingAnchor.constraint(equalTo: userThemesListView.trailingAnchor, constant: 24),
+            
+            importFilesRadioButton.topAnchor.constraint(equalTo: importLabel.bottomAnchor, constant: 12),
+            importFilesRadioButton.leadingAnchor.constraint(equalTo: importLabel.leadingAnchor),
+            
+            importCloudRadioButton.topAnchor.constraint(equalTo: importFilesRadioButton.topAnchor),
+            importCloudRadioButton.leadingAnchor.constraint(equalTo: importFilesRadioButton.trailingAnchor, constant: 12),
+            
+            importButton.centerYAnchor.constraint(equalTo: importCloudRadioButton.centerYAnchor),
+            importButton.leadingAnchor.constraint(equalTo: importCloudRadioButton.trailingAnchor, constant: 12),
+            
+            lastUpdateDateLabel.leadingAnchor.constraint(equalTo: userSnippetsListView.trailingAnchor, constant: 24),
+            lastUpdateDateLabel.bottomAnchor.constraint(equalTo: userSnippetsListView.bottomAnchor)
         ])
     }
     
@@ -119,6 +161,23 @@ final class UserDataView: NSView {
         }
         if exportCloudRadioButton.state == .on {
             delegate?.exportCloud()
+        }
+    }
+    
+    @objc private func importFilesRadioButtonTapped() {
+        importCloudRadioButton.state = .off
+    }
+    
+    @objc private func importCloudRadioButtonTapped() {
+        importFilesRadioButton.state = .off
+    }
+    
+    @objc private func importButtonTapped() {
+        if importFilesRadioButton.state == .on {
+            delegate?.importFiles()
+        }
+        if importCloudRadioButton.state == .on {
+            delegate?.importCloud()
         }
     }
     

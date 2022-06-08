@@ -47,7 +47,7 @@ final class Presenter {
             dateFormatter.dateStyle = .long
             dateFormatter.timeStyle = .short
             let stringValue = dateFormatter.string(from: date)
-            let text = "Last updated at " + stringValue
+            let text = "Last exported at " + stringValue
             viewController?.displayLastUpdateDate(text: text)
         }
     }

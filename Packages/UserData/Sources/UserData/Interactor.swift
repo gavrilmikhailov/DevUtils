@@ -9,6 +9,7 @@ import AppKit
 import Zip
 import FirebaseClient
 import DevToolsCore
+import UniformTypeIdentifiers
 
 final class Interactor {
     
@@ -67,6 +68,57 @@ final class Interactor {
                 }
             }
         }
+    }
+    
+    func importFiles() {
+        guard let themeType = UTType(filenameExtension: "xccolortheme"),
+              let snippetType = UTType(filenameExtension: "codesnippet") else {
+            return
+        }
+        let openPanel = NSOpenPanel()
+        openPanel.allowedContentTypes = [themeType, snippetType]
+        openPanel.allowsMultipleSelection = true
+        openPanel.canChooseDirectories = false
+        openPanel.canChooseFiles = true
+        openPanel.canSelectHiddenExtension = true
+        openPanel.showsHiddenFiles = true
+        openPanel.isExtensionHidden = false
+        guard openPanel.runModal() == .OK else {
+            return
+        }
+        do {
+            let libraryURL = try FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let themesURL = libraryURL
+                .appendingPathComponent("Developer")
+                .appendingPathComponent("XCode")
+                .appendingPathComponent("UserData")
+                .appendingPathComponent("FontAndColorThemes")
+            let snippetsURL = libraryURL
+                .appendingPathComponent("Developer")
+                .appendingPathComponent("XCode")
+                .appendingPathComponent("UserData")
+                .appendingPathComponent("CodeSnippets")
+            if !FileManager.default.fileExists(atPath: themesURL.path) {
+                try FileManager.default.createDirectory(at: themesURL, withIntermediateDirectories: false)
+            }
+            try openPanel.urls.forEach {
+                if $0.pathExtension == themeType.preferredFilenameExtension {
+                    let destURL = themesURL.appendingPathComponent($0.lastPathComponent, conformingTo: themeType)
+                    try FileManager.default.copyItem(at: $0, to: getSafeURLToSaveFile(originalURL: destURL))
+                }
+                if $0.pathExtension == snippetType.preferredFilenameExtension {
+                    let destURL = snippetsURL.appendingPathComponent($0.lastPathComponent, conformingTo: snippetType)
+                    try FileManager.default.copyItem(at: $0, to: getSafeURLToSaveFile(originalURL: destURL))
+                }
+            }
+            NSWorkspace.shared.activateFileViewerSelecting([themesURL])
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func importCloud() {
+        FirebaseClient.shared
     }
     
     func loadLastUpdateDate() {
@@ -145,4 +197,17 @@ final class Interactor {
         return SnippetModel(id: UUID().uuidString, title: title, content: content, url: url)
     }
 
+    private func getSafeURLToSaveFile(originalURL: URL) -> URL {
+        var modifiedURL = originalURL
+        var counter = 1
+        while FileManager.default.fileExists(atPath: modifiedURL.path) {
+            let newName = originalURL.deletingPathExtension().lastPathComponent + " (\(counter))"
+            modifiedURL = originalURL
+                .deletingLastPathComponent()
+                .appendingPathComponent(newName)
+                .appendingPathExtension(originalURL.pathExtension)
+            counter += 1
+        }
+        return modifiedURL
+    }
 }

@@ -23,6 +23,10 @@ protocol ViewControllerDelegate: AnyObject {
     func exportArchive()
     
     func exportCloud()
+    
+    func importFiles()
+    
+    func importCloud()
 }
 
 final class ViewController: NSViewController {
@@ -66,7 +70,7 @@ extension ViewController: ViewControllerDisplayLogic {
 }
 
 extension ViewController: ViewControllerDelegate {
-    
+
     func revealInFinder(url: URL) {
         interactor.revealInFinder(url: url)
     }
@@ -79,5 +83,13 @@ extension ViewController: ViewControllerDelegate {
         if let window = view.window {
             interactor.exportCloud(window: window)
         }
+    }
+    
+    func importFiles() {
+        interactor.importFiles()
+    }
+    
+    func importCloud() {
+        interactor.importCloud()
     }
 }

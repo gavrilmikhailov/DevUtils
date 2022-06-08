@@ -84,4 +84,8 @@ public final class FirebaseClient {
             task.resume()
         }
     }
+    
+    public func loadFiles(window: NSWindow) {
+        
+    }
 }
