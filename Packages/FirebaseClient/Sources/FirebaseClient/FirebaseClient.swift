@@ -85,7 +85,30 @@ public final class FirebaseClient {
         }
     }
     
-    public func loadFiles(window: NSWindow) {
-        
+    public func loadFiles(window: NSWindow, to url: URL, completion: @escaping () -> Void) {
+        if Auth.auth().currentUser == nil {
+            signIn(presenting: window) {
+                self._loadFiles(to: url, completion: completion)
+            }
+        } else {
+            _loadFiles(to: url, completion: completion)
+        }
+    }
+    
+    private func _loadFiles(to url: URL, completion: @escaping () -> Void) {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("Not signed in")
+            return
+        }
+        let storage = Storage.storage()
+        let themesReference = storage.reference().child("themes/" + userID)
+        Task {
+            for item in try await themesReference.listAll().items {
+                let writeURL = url.appendingPathComponent(item.name)
+                let url = try await item.writeAsync(toFile: writeURL)
+                print("Written file at", url.path)
+            }
+            completion()
+        }
     }
 }

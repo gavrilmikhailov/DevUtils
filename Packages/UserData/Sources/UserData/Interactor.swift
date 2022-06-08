@@ -13,6 +13,11 @@ import UniformTypeIdentifiers
 
 final class Interactor {
     
+    private enum SupportedTypes {
+        static let themeType: UTType! = UTType(filenameExtension: "xccolortheme")
+        static let snippetType: UTType! = UTType(filenameExtension: "codesnippet")
+    }
+    
     private let presenter: Presenter
 
     private lazy var debouncer = Debouncer(queue: DispatchQueue.global())
@@ -71,12 +76,8 @@ final class Interactor {
     }
     
     func importFiles() {
-        guard let themeType = UTType(filenameExtension: "xccolortheme"),
-              let snippetType = UTType(filenameExtension: "codesnippet") else {
-            return
-        }
         let openPanel = NSOpenPanel()
-        openPanel.allowedContentTypes = [themeType, snippetType]
+        openPanel.allowedContentTypes = [SupportedTypes.themeType, SupportedTypes.snippetType]
         openPanel.allowsMultipleSelection = true
         openPanel.canChooseDirectories = false
         openPanel.canChooseFiles = true
@@ -101,13 +102,16 @@ final class Interactor {
             if !FileManager.default.fileExists(atPath: themesURL.path) {
                 try FileManager.default.createDirectory(at: themesURL, withIntermediateDirectories: false)
             }
+            if !FileManager.default.fileExists(atPath: snippetsURL.path) {
+                try FileManager.default.createDirectory(at: snippetsURL, withIntermediateDirectories: false)
+            }
             try openPanel.urls.forEach {
-                if $0.pathExtension == themeType.preferredFilenameExtension {
-                    let destURL = themesURL.appendingPathComponent($0.lastPathComponent, conformingTo: themeType)
+                if $0.pathExtension == SupportedTypes.themeType.preferredFilenameExtension {
+                    let destURL = themesURL.appendingPathComponent($0.lastPathComponent, conformingTo: SupportedTypes.themeType)
                     try FileManager.default.copyItem(at: $0, to: getSafeURLToSaveFile(originalURL: destURL))
                 }
-                if $0.pathExtension == snippetType.preferredFilenameExtension {
-                    let destURL = snippetsURL.appendingPathComponent($0.lastPathComponent, conformingTo: snippetType)
+                if $0.pathExtension == SupportedTypes.snippetType.preferredFilenameExtension {
+                    let destURL = snippetsURL.appendingPathComponent($0.lastPathComponent, conformingTo: SupportedTypes.snippetType)
                     try FileManager.default.copyItem(at: $0, to: getSafeURLToSaveFile(originalURL: destURL))
                 }
             }
@@ -117,8 +121,51 @@ final class Interactor {
         }
     }
     
-    func importCloud() {
-        FirebaseClient.shared
+    func importCloud(window: NSWindow) {
+        let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+        FirebaseClient.shared.loadFiles(window: window, to: temporaryDirectoryURL) { [weak self] in
+            defer {
+                try? FileManager.default.removeItem(at: temporaryDirectoryURL)
+                self?.loadFiles()
+            }
+            do {
+                let libraryURL = try FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+                let themesURL = libraryURL
+                    .appendingPathComponent("Developer")
+                    .appendingPathComponent("XCode")
+                    .appendingPathComponent("UserData")
+                    .appendingPathComponent("FontAndColorThemes")
+                let snippetsURL = libraryURL
+                    .appendingPathComponent("Developer")
+                    .appendingPathComponent("XCode")
+                    .appendingPathComponent("UserData")
+                    .appendingPathComponent("CodeSnippets")
+                if !FileManager.default.fileExists(atPath: themesURL.path) {
+                    try FileManager.default.createDirectory(at: themesURL, withIntermediateDirectories: false)
+                }
+                if !FileManager.default.fileExists(atPath: snippetsURL.path) {
+                    try FileManager.default.createDirectory(at: snippetsURL, withIntermediateDirectories: false)
+                }
+                for fileURL in try FileManager.default.contentsOfDirectory(at: temporaryDirectoryURL, includingPropertiesForKeys: nil) {
+                    if fileURL.pathExtension == SupportedTypes.themeType.preferredFilenameExtension {
+                        let destURL = themesURL.appendingPathComponent(fileURL.lastPathComponent, conformingTo: SupportedTypes.themeType)
+                        if FileManager.default.fileExists(atPath: destURL.path) {
+                            try FileManager.default.removeItem(at: destURL)
+                        }
+                        try FileManager.default.copyItem(at: fileURL, to: destURL)
+                    }
+                    if fileURL.pathExtension == SupportedTypes.snippetType.preferredFilenameExtension {
+                        let destURL = snippetsURL.appendingPathComponent(fileURL.lastPathComponent, conformingTo: SupportedTypes.snippetType)
+                        if FileManager.default.fileExists(atPath: destURL.path) {
+                            try FileManager.default.removeItem(at: destURL)
+                        }
+                        try FileManager.default.copyItem(at: fileURL, to: destURL)
+                    }
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
     
     func loadLastUpdateDate() {
@@ -162,18 +209,18 @@ final class Interactor {
     private func loadLocalCodeSnippets() {
         do {
             let libraryURL = try FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-            let themesURL = libraryURL
+            let snippetsURL = libraryURL
                 .appendingPathComponent("Developer")
                 .appendingPathComponent("XCode")
                 .appendingPathComponent("UserData")
                 .appendingPathComponent("CodeSnippets")
 
-            if !FileManager.default.fileExists(atPath: themesURL.path) {
-                try FileManager.default.createDirectory(at: themesURL, withIntermediateDirectories: false)
+            if !FileManager.default.fileExists(atPath: snippetsURL.path) {
+                try FileManager.default.createDirectory(at: snippetsURL, withIntermediateDirectories: false)
             }
 
             userSnippets = try FileManager.default
-                .contentsOfDirectory(at: themesURL, includingPropertiesForKeys: nil)
+                .contentsOfDirectory(at: snippetsURL, includingPropertiesForKeys: nil)
                 .filter { $0.pathExtension == "codesnippet" }
                 .map { getSnippetModel(url: $0) }
         } catch {

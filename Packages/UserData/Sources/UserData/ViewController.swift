@@ -37,6 +37,12 @@ final class ViewController: NSViewController {
     init(interactor: Interactor) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(windowDidBecomeKey(notification:)),
+            name: NSWindow.didBecomeKeyNotification,
+            object: nil
+        )
     }
     
     override func loadView() {
@@ -45,12 +51,20 @@ final class ViewController: NSViewController {
     
     override func viewWillAppear() {
         super.viewWillAppear()
-        interactor.loadFiles()
-        interactor.loadLastUpdateDate()
+        loadContent()
+    }
+    
+    @objc private func windowDidBecomeKey(notification: NSNotification) {
+        loadContent()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func loadContent() {
+        interactor.loadFiles()
+        interactor.loadLastUpdateDate()
     }
 }
 
@@ -90,6 +104,8 @@ extension ViewController: ViewControllerDelegate {
     }
     
     func importCloud() {
-        interactor.importCloud()
+        if let window = view.window {
+            interactor.importCloud(window: window)
+        }
     }
 }
