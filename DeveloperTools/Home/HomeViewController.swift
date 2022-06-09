@@ -29,12 +29,12 @@ final class HomeViewController: NSViewController {
     }
 
     let modules: [ModuleProtocol] = [
+        CleanerModule(),
         UserDataModule(),
 //        ThemesModule(),
         JsonPrettifierModule(),
 //        SnippetsModule(),
         PushNotificationsModule(),
-        CleanerModule()
     ]
     private var homeControlsViewState: HomeControlsViewState = HomeControlsViewState()
     private weak var tabViewController: HomeTabView?
