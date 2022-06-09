@@ -8,8 +8,6 @@
 import AppKit
 import DevToolsCore
 import JsonPrettifier
-import Snippets
-import Themes
 import PushNotifications
 import UserData
 import Cleaner
@@ -31,9 +29,7 @@ final class HomeViewController: NSViewController {
     let modules: [ModuleProtocol] = [
         CleanerModule(),
         UserDataModule(),
-//        ThemesModule(),
         JsonPrettifierModule(),
-//        SnippetsModule(),
         PushNotificationsModule(),
     ]
     private var homeControlsViewState: HomeControlsViewState = HomeControlsViewState()
