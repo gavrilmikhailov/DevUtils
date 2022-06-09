@@ -10,6 +10,8 @@ import AppKit
 protocol ViewControllerDisplayLogic: AnyObject {
     
     func displayDerivedDataSize(size: String)
+    
+    func displaySupportedDevices(viewModels: [DeviceViewModel])
 }
 
 protocol ViewControllerDelegate: AnyObject {
@@ -39,11 +41,16 @@ final class ViewController: NSViewController {
     
     override func viewWillAppear() {
         super.viewWillAppear()
-        interactor.getDerivedDataSize()
+        loadContent()
     }
     
     @objc private func windowDidBecomeKey(notification: NSNotification) {
+        loadContent()
+    }
+    
+    private func loadContent() {
         interactor.getDerivedDataSize()
+        interactor.getSupportedDevices()
     }
     
     required init?(coder: NSCoder) {
@@ -55,6 +62,10 @@ extension ViewController: ViewControllerDisplayLogic {
     
     func displayDerivedDataSize(size: String) {
         customView?.configure(derivedDataSize: size)
+    }
+
+    func displaySupportedDevices(viewModels: [DeviceViewModel]) {
+        customView?.configure(supportedDevices: viewModels)
     }
 }
 

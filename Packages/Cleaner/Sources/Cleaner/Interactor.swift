@@ -22,7 +22,7 @@ final class Interactor {
             do {
                 let derivedDataURL = try self.getDerivedDataURL()
                 let bytesCount = try FileManager.default.allocatedSizeOfDirectory(at: derivedDataURL)
-                self.presenter.presentDerivedDataSize(bytes: bytesCount)
+                self.presenter.presentDerivedDataSize(bytesCount: bytesCount)
             } catch {
                 print(error.localizedDescription)
             }
@@ -47,6 +47,23 @@ final class Interactor {
         }
     }
     
+    func getSupportedDevices() {
+        DispatchQueue.global().async { [weak self] in
+            guard let self = self else { return }
+            do {
+                let supportedDevicesURL = try self.getSupportedDevicesURL()
+                let urls = try FileManager.default.contentsOfDirectory(at: supportedDevicesURL, includingPropertiesForKeys: nil)
+                let models: [DeviceModel] = try urls.map {
+                    let size = try FileManager.default.allocatedSizeOfDirectory(at: $0)
+                    return DeviceModel(url: $0, size: size)
+                }
+                self.presenter.presentSupportedDevices(models: models)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     private func getDerivedDataURL() throws -> URL {
         let libraryURL = try FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
         let derivedDataURL = libraryURL
@@ -54,5 +71,14 @@ final class Interactor {
             .appendingPathComponent("XCode")
             .appendingPathComponent("DerivedData")
         return derivedDataURL
+    }
+    
+    private func getSupportedDevicesURL() throws -> URL {
+        let libraryURL = try FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+        let supportedDevicesURL = libraryURL
+            .appendingPathComponent("Developer")
+            .appendingPathComponent("XCode")
+            .appendingPathComponent("iOS DeviceSupport")
+        return supportedDevicesURL
     }
 }

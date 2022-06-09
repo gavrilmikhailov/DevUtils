@@ -9,6 +9,8 @@ import AppKit
 
 final class CleanerView: NSView {
     
+    private let devicesListViewState = DevicesListViewState()
+
     private weak var delegate: ViewControllerDelegate?
     
     private lazy var derivedDataCleanLabel: NSTextField = {
@@ -29,6 +31,19 @@ final class CleanerView: NSView {
         return button
     }()
     
+    private lazy var iosDeviceSupportLabel: NSTextField = {
+        let textField = NSTextField(labelWithString: "iOS Device Support")
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
+    private lazy var devicesListView: DevicesListView = {
+        let listView = DevicesListView(viewState: devicesListViewState)
+        listView.setContentHuggingPriority(.defaultLow, for: .vertical)
+        listView.translatesAutoresizingMaskIntoConstraints = false
+        return listView
+    }()
+    
     init(frame: NSRect, delegate: ViewControllerDelegate) {
         self.delegate = delegate
         super.init(frame: frame)
@@ -43,6 +58,7 @@ final class CleanerView: NSView {
         addSubview(derivedDataCleanLabel)
         addSubview(derivedDataSizeLabel)
         addSubview(derivedDataCleanButton)
+        addSubview(devicesListView)
         
         NSLayoutConstraint.activate([
             derivedDataCleanLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
@@ -52,7 +68,12 @@ final class CleanerView: NSView {
             derivedDataSizeLabel.leadingAnchor.constraint(equalTo: derivedDataCleanLabel.leadingAnchor),
             
             derivedDataCleanButton.centerYAnchor.constraint(equalTo: derivedDataSizeLabel.centerYAnchor),
-            derivedDataCleanButton.leadingAnchor.constraint(equalTo: derivedDataSizeLabel.trailingAnchor, constant: 12)
+            derivedDataCleanButton.leadingAnchor.constraint(equalTo: derivedDataSizeLabel.trailingAnchor, constant: 12),
+            
+            devicesListView.topAnchor.constraint(equalTo: derivedDataSizeLabel.bottomAnchor, constant: 24),
+            devicesListView.leadingAnchor.constraint(equalTo: derivedDataCleanLabel.leadingAnchor),
+            devicesListView.widthAnchor.constraint(equalToConstant: 280),
+            devicesListView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -12)
         ])
     }
     
@@ -62,5 +83,9 @@ final class CleanerView: NSView {
     
     func configure(derivedDataSize: String) {
         derivedDataSizeLabel.stringValue = derivedDataSize
+    }
+    
+    func configure(supportedDevices: [DeviceViewModel]) {
+        devicesListViewState.rows = supportedDevices
     }
 }
