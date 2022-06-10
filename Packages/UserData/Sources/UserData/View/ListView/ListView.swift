@@ -50,7 +50,7 @@ struct ListViewRootView: View {
             .buttonStyle(.plain)
             .listStyle(PlainListStyle())
             .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
-            .background(Color(nsColor: .windowBackgroundColor))
+            .background(Color(nsColor: .controlBackgroundColor))
             .cornerRadius(6, antialiased: true)
         }
     }

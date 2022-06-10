@@ -248,7 +248,9 @@ final class Interactor {
         var modifiedURL = originalURL
         var counter = 1
         while FileManager.default.fileExists(atPath: modifiedURL.path) {
-            let newName = originalURL.deletingPathExtension().lastPathComponent + " (\(counter))"
+            let newName = originalURL
+                .deletingPathExtension()
+                .lastPathComponent + " (\(counter))"
             modifiedURL = originalURL
                 .deletingLastPathComponent()
                 .appendingPathComponent(newName)

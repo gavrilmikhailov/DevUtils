@@ -68,9 +68,11 @@ struct ModuleButton: View {
                 HStack {
                     Image(nsImage: icon)
                         .frame(width: 12, height: 12, alignment: .center)
+                        .foregroundColor(Color(nsColor: isSelected ? .white : .textColor))
                     Text(title)
                         .font(Font.system(size: 12))
                         .fontWeight(.regular)
+                        .foregroundColor(Color(nsColor: isSelected ? .white : .textColor))
                     Spacer()
                 }
                 .padding(EdgeInsets(top: 6, leading: 8, bottom: 6, trailing: 8))

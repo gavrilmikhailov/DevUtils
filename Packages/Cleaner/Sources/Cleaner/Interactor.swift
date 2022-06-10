@@ -52,7 +52,10 @@ final class Interactor {
             guard let self = self else { return }
             do {
                 let supportedDevicesURL = try self.getSupportedDevicesURL()
-                let urls = try FileManager.default.contentsOfDirectory(at: supportedDevicesURL, includingPropertiesForKeys: nil)
+                let urls = try FileManager.default.contentsOfDirectory(
+                    at: supportedDevicesURL,
+                    includingPropertiesForKeys: nil,
+                    options: [.skipsHiddenFiles])
                 let models: [DeviceModel] = try urls.map {
                     let size = try FileManager.default.allocatedSizeOfDirectory(at: $0)
                     return DeviceModel(url: $0, size: size)
