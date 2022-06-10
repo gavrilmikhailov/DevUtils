@@ -10,9 +10,13 @@ import AppKit
 protocol ViewControllerDisplayLogic: AnyObject {
     
     func displayPreviousDividerOffset(value: Double)
+    
+    func displayFormatted(text: NSAttributedString)
 }
 
 protocol ViewControllerDelegate: AnyObject {
+    
+    func editingChanged(text: String)
     
     func setDividerOffset(value: CGFloat)
 }
@@ -47,9 +51,17 @@ extension ViewController: ViewControllerDisplayLogic {
     func displayPreviousDividerOffset(value: Double) {
         customView?.configure(dividerOffset: value)
     }
+
+    func displayFormatted(text: NSAttributedString) {
+        customView?.configure(attrbutedString: text)
+    }
 }
 
 extension ViewController: ViewControllerDelegate {
+    
+    func editingChanged(text: String) {
+        interactor.format(text: text)
+    }
     
     func setDividerOffset(value: CGFloat) {
         interactor.setDividerOffset(value: value)

@@ -7,7 +7,6 @@
 
 import AppKit
 import DevToolsCore
-import Down
 
 final class MarkdownEditorView: NSView {
     
@@ -32,7 +31,8 @@ final class MarkdownEditorView: NSView {
     private lazy var outputTextField: NSTextField = {
         let textField = NSTextField()
         textField.focusRingType = .none
-        textField.font = NSFont.monospacedSystemFont(ofSize: 12, weight: .regular)
+        textField.isEditable = false
+        textField.isSelectable = false
         textField.setContentHuggingPriority(.defaultLow, for: .vertical)
         return textField
     }()
@@ -65,6 +65,10 @@ final class MarkdownEditorView: NSView {
             splitView.setPosition(splitView.bounds.midX + dividerOffset, ofDividerAt: 0)
         }
     }
+    
+    func configure(attrbutedString: NSAttributedString) {
+        outputTextField.attributedStringValue = attrbutedString
+    }
 }
 
 extension MarkdownEditorView: NSSplitViewDelegate {
@@ -77,12 +81,7 @@ extension MarkdownEditorView: NSSplitViewDelegate {
 extension MarkdownEditorView: TextFieldDelegate {
 
     func didChangeText(stringValue: String) {
-        do {
-            let down = Down(markdownString: stringValue)
-            outputTextField.attributedStringValue = try down.toAttributedString()
-        } catch {
-            print(error.localizedDescription)
-        }
+        delegate?.editingChanged(text: stringValue)
     }
     
     func didPaste() {
