@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D09602428536B3A006EA072 /* MarkdownEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 6D09602328536B3A006EA072 /* MarkdownEditor */; };
 		6D9788B428520EB7005240F3 /* Cleaner in Frameworks */ = {isa = PBXBuildFile; productRef = 6D9788B328520EB7005240F3 /* Cleaner */; };
 		6D9788B628520EBA005240F3 /* DevToolsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6D9788B528520EBA005240F3 /* DevToolsCore */; };
 		6D9788B828520EBD005240F3 /* FirebaseClient in Frameworks */ = {isa = PBXBuildFile; productRef = 6D9788B728520EBD005240F3 /* FirebaseClient */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6D09602228536B08006EA072 /* MarkdownEditor */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MarkdownEditor; path = Packages/MarkdownEditor; sourceTree = "<group>"; };
 		6D1B6C50284375810003EE4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		6D9788AD28520E47005240F3 /* Cleaner */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Cleaner; path = Packages/Cleaner; sourceTree = "<group>"; };
 		6D9788AE28520E50005240F3 /* DevToolsCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DevToolsCore; path = Packages/DevToolsCore; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				6D9788B428520EB7005240F3 /* Cleaner in Frameworks */,
 				6D9788BE28520EC5005240F3 /* UserData in Frameworks */,
 				6D9788BC28520EC3005240F3 /* PushNotifications in Frameworks */,
+				6D09602428536B3A006EA072 /* MarkdownEditor in Frameworks */,
 				6D9788B828520EBD005240F3 /* FirebaseClient in Frameworks */,
 				6D9788BA28520EBF005240F3 /* JsonPrettifier in Frameworks */,
 				6D9788B628520EBA005240F3 /* DevToolsCore in Frameworks */,
@@ -167,6 +170,7 @@
 				6D9788B028520E61005240F3 /* JsonPrettifier */,
 				6D9788B128520E6A005240F3 /* PushNotifications */,
 				6D9788B228520E90005240F3 /* UserData */,
+				6D09602228536B08006EA072 /* MarkdownEditor */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -201,6 +205,7 @@
 				6D9788B928520EBF005240F3 /* JsonPrettifier */,
 				6D9788BB28520EC3005240F3 /* PushNotifications */,
 				6D9788BD28520EC5005240F3 /* UserData */,
+				6D09602328536B3A006EA072 /* MarkdownEditor */,
 			);
 			productName = DeveloperTools;
 			productReference = 6DFCEBEA2801C18B00D83620 /* DeveloperTools.app */;
@@ -485,6 +490,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6D09602328536B3A006EA072 /* MarkdownEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MarkdownEditor;
+		};
 		6D9788B328520EB7005240F3 /* Cleaner */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Cleaner;

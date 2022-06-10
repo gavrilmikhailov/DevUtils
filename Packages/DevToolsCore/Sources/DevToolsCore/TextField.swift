@@ -8,6 +8,9 @@
 import AppKit
 
 public protocol TextFieldDelegate: AnyObject {
+    
+    func didChangeText(stringValue: String)
+    
     func didPaste()
 }
 
@@ -80,6 +83,11 @@ public final class TextField: NSTextField {
     public override func resignFirstResponder() -> Bool {
         print("TextField resigned first responder")
         return super.resignFirstResponder()
+    }
+    
+    public override func textDidChange(_ notification: Notification) {
+        super.textDidChange(notification)
+        textFieldDelegate?.didChangeText(stringValue: stringValue)
     }
     
     required init?(coder: NSCoder) {

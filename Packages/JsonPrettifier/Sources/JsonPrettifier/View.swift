@@ -168,6 +168,10 @@ final class TestJsonPrettifierView: NSView {
 }
 
 extension TestJsonPrettifierView: TextFieldDelegate {
+    func didChangeText(stringValue: String) {
+        
+    }
+    
     func didPaste() {
         didTapConvertButton()
     }

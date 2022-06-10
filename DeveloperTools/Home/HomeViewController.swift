@@ -11,6 +11,7 @@ import JsonPrettifier
 import PushNotifications
 import UserData
 import Cleaner
+import MarkdownEditor
 
 protocol HomeViewControllerDelegate: AnyObject {
     var modules: [ModuleProtocol] { get }
@@ -31,6 +32,7 @@ final class HomeViewController: NSViewController {
         UserDataModule(),
         JsonPrettifierModule(),
         PushNotificationsModule(),
+        MarkdownEditorModule()
     ]
     private var homeControlsViewState: HomeControlsViewState = HomeControlsViewState()
     private weak var tabViewController: HomeTabView?
