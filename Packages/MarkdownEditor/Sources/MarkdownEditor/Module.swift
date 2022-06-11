@@ -9,7 +9,7 @@ import AppKit
 import DevToolsCore
 
 public struct MarkdownEditorModule: ModuleProtocol {
-    public let name: String = "Markdown"
+    public let name: String = "Markdown Preview"
     public let icon: NSImage = NSImage(systemSymbolName: "m.square", accessibilityDescription: "Markdown")!
     public let viewController: NSViewController = buildViewController()
 

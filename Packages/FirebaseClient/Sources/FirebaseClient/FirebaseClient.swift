@@ -101,16 +101,14 @@ public final class FirebaseClient {
             return
         }
         let storage = Storage.storage()
-        let themesReference = storage.reference().child("themes/" + userID)
+        let userStorageReference = storage.reference().child("themes/" + userID)
         Task {
-            let items = try await themesReference.listAll().items
             try await withThrowingTaskGroup(of: URL.self) { group in
-                items.forEach { item in
+                try await userStorageReference.listAll().items.forEach { item in
                     group.addTask {
                         let writeURL = url.appendingPathComponent(item.name)
-                        let url = try await item.writeAsync(toFile: writeURL)
-                        print("Written file at", url.path)
-                        return url
+                        defer { print("Written file at", writeURL.path) }
+                        return try await item.writeAsync(toFile: writeURL)
                     }
                 }
                 try await group.waitForAll()
@@ -119,3 +117,6 @@ public final class FirebaseClient {
         }
     }
 }
+
+
+// Time elapsed 5.220346927642822 s.
