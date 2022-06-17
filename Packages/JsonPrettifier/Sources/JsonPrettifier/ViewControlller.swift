@@ -25,7 +25,7 @@ final class ViewController: NSViewController {
     
     private let interactor: Interactor
 
-    private lazy var customView = view as! TestJsonPrettifierView
+    private lazy var customView = view as! JsonPrettifierView
 
     init(title: String, interactor: Interactor) {
         self.interactor = interactor
@@ -34,7 +34,7 @@ final class ViewController: NSViewController {
     }
     
     override func loadView() {
-        view = TestJsonPrettifierView(frame: .zero, delegate: self)
+        view = JsonPrettifierView(frame: .zero, delegate: self)
     }
     
     override func viewDidLoad() {

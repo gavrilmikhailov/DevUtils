@@ -8,7 +8,7 @@
 import AppKit
 import DevToolsCore
 
-final class TestJsonPrettifierView: NSView {
+final class JsonPrettifierView: NSView {
 
     private weak var delegate: ViewControllerDelegate?
     
@@ -167,7 +167,7 @@ final class TestJsonPrettifierView: NSView {
     }
 }
 
-extension TestJsonPrettifierView: TextFieldDelegate {
+extension JsonPrettifierView: TextFieldDelegate {
     func didChangeText(stringValue: String) {
         
     }
@@ -177,7 +177,7 @@ extension TestJsonPrettifierView: TextFieldDelegate {
     }
 }
 
-extension TestJsonPrettifierView: NSSplitViewDelegate {
+extension JsonPrettifierView: NSSplitViewDelegate {
     func splitViewDidResizeSubviews(_ notification: Notification) {
         let offset = inputTextField.frame.maxX - splitView.frame.midX + 16
         delegate?.setDividerOffset(value: offset)

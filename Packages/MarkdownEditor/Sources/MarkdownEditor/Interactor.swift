@@ -14,7 +14,7 @@ final class Interactor {
     private let presenter: Presenter
     private let debouncer: Debouncer
     
-    private var down: Down = Down(markdownString: "")
+    private var down = Down(markdownString: "")
     
     init(presenter: Presenter,
          debouncer: Debouncer = Debouncer(queue: DispatchQueue.global())) {

@@ -85,6 +85,5 @@ extension MarkdownEditorView: TextFieldDelegate {
     }
     
     func didPaste() {
-        
     }
 }

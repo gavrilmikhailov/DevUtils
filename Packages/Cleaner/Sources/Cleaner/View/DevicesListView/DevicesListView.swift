@@ -33,13 +33,9 @@ struct DevicesListRootView: View {
             Text("Supported iOS Devices")
             List(viewState.rows) { viewModel in
                 Button {
-                    
+                    viewModel.onClick()
                 } label: {
-                    HStack {
-                        Text(viewModel.name)
-                        Spacer()
-                        Text(viewModel.size)
-                    }
+                    ButtonLabelView(name: viewModel.name, size: viewModel.size, isSelected: viewModel.isSelected)
                 }
                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                 .frame(height: rowHeight)
@@ -57,18 +53,17 @@ struct DevicesListRootView: View {
 struct ButtonLabelView: View {
     
     let name: String
+    let size: String
     let isSelected: Bool
-    let isBooted: Bool
     
     var body: some View {
         Group {
             HStack {
-                Image(systemName: isBooted ? "poweron" : "poweroff")
-                    .frame(width: 12, height: 12, alignment: .center)
                 Text(name)
-                    .font(Font.system(size: 12))
-                    .fontWeight(.regular)
+                    .foregroundColor(Color(nsColor: isSelected ? .white : .textColor))
                 Spacer()
+                Text(size)
+                    .foregroundColor(Color(nsColor: isSelected ? .white : .textColor))
             }
             .padding(EdgeInsets(top: 6, leading: 8, bottom: 6, trailing: 8))
         }

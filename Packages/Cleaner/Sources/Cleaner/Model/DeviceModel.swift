@@ -7,7 +7,12 @@
 
 import Foundation
 
-struct DeviceModel {
+struct DeviceModel: Equatable {
     let url: URL
     let size: UInt64
+    let isSelected: Bool
+    
+    static func ==(lhs: DeviceModel, rhs: DeviceModel) -> Bool {
+        lhs.url == rhs.url
+    }
 }

@@ -88,17 +88,8 @@ final class Interactor {
             return
         }
         do {
-            let libraryURL = try FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-            let themesURL = libraryURL
-                .appendingPathComponent("Developer")
-                .appendingPathComponent("XCode")
-                .appendingPathComponent("UserData")
-                .appendingPathComponent("FontAndColorThemes")
-            let snippetsURL = libraryURL
-                .appendingPathComponent("Developer")
-                .appendingPathComponent("XCode")
-                .appendingPathComponent("UserData")
-                .appendingPathComponent("CodeSnippets")
+            let themesURL = try themesURL
+            let snippetsURL = try snippetsURL
             if !FileManager.default.fileExists(atPath: themesURL.path) {
                 try FileManager.default.createDirectory(at: themesURL, withIntermediateDirectories: false)
             }
@@ -106,13 +97,15 @@ final class Interactor {
                 try FileManager.default.createDirectory(at: snippetsURL, withIntermediateDirectories: false)
             }
             try openPanel.urls.forEach {
-                if $0.pathExtension == SupportedTypes.themeType.preferredFilenameExtension {
+                switch $0.pathExtension {
+                case SupportedTypes.themeType.preferredFilenameExtension:
                     let destURL = themesURL.appendingPathComponent($0.lastPathComponent, conformingTo: SupportedTypes.themeType)
                     try FileManager.default.copyItem(at: $0, to: getSafeURLToSaveFile(originalURL: destURL))
-                }
-                if $0.pathExtension == SupportedTypes.snippetType.preferredFilenameExtension {
+                case SupportedTypes.snippetType.preferredFilenameExtension:
                     let destURL = snippetsURL.appendingPathComponent($0.lastPathComponent, conformingTo: SupportedTypes.snippetType)
                     try FileManager.default.copyItem(at: $0, to: getSafeURLToSaveFile(originalURL: destURL))
+                default:
+                    break
                 }
             }
             NSWorkspace.shared.activateFileViewerSelecting([themesURL])
@@ -129,17 +122,11 @@ final class Interactor {
                 self?.loadFiles()
             }
             do {
-                let libraryURL = try FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-                let themesURL = libraryURL
-                    .appendingPathComponent("Developer")
-                    .appendingPathComponent("XCode")
-                    .appendingPathComponent("UserData")
-                    .appendingPathComponent("FontAndColorThemes")
-                let snippetsURL = libraryURL
-                    .appendingPathComponent("Developer")
-                    .appendingPathComponent("XCode")
-                    .appendingPathComponent("UserData")
-                    .appendingPathComponent("CodeSnippets")
+                guard let self = self else {
+                    return
+                }
+                let themesURL = try self.themesURL
+                let snippetsURL = try self.snippetsURL
                 if !FileManager.default.fileExists(atPath: themesURL.path) {
                     try FileManager.default.createDirectory(at: themesURL, withIntermediateDirectories: false)
                 }
@@ -184,17 +171,10 @@ final class Interactor {
     
     private func loadLocalThemes() {
         do {
-            let libraryURL = try FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-            let themesURL = libraryURL
-                .appendingPathComponent("Developer")
-                .appendingPathComponent("XCode")
-                .appendingPathComponent("UserData")
-                .appendingPathComponent("FontAndColorThemes")
-
+            let themesURL = try themesURL
             if !FileManager.default.fileExists(atPath: themesURL.path) {
                 try FileManager.default.createDirectory(at: themesURL, withIntermediateDirectories: false)
             }
-
             let fileURLs = try FileManager.default
                 .contentsOfDirectory(at: themesURL, includingPropertiesForKeys: nil)
                 .filter { $0.pathExtension == "xccolortheme" }
@@ -208,17 +188,10 @@ final class Interactor {
 
     private func loadLocalCodeSnippets() {
         do {
-            let libraryURL = try FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-            let snippetsURL = libraryURL
-                .appendingPathComponent("Developer")
-                .appendingPathComponent("XCode")
-                .appendingPathComponent("UserData")
-                .appendingPathComponent("CodeSnippets")
-
+            let snippetsURL = try snippetsURL
             if !FileManager.default.fileExists(atPath: snippetsURL.path) {
                 try FileManager.default.createDirectory(at: snippetsURL, withIntermediateDirectories: false)
             }
-
             userSnippets = try FileManager.default
                 .contentsOfDirectory(at: snippetsURL, includingPropertiesForKeys: nil)
                 .filter { $0.pathExtension == "codesnippet" }
@@ -240,7 +213,7 @@ final class Interactor {
                 content = plist["IDECodeSnippetContents"] as? String
             }
         }
-        // User appropriate id
+        // TODO: User real id
         return SnippetModel(id: UUID().uuidString, title: title, content: content, url: url)
     }
 
@@ -258,5 +231,25 @@ final class Interactor {
             counter += 1
         }
         return modifiedURL
+    }
+    
+    private var snippetsURL: URL {
+        get throws {
+            try FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+                .appendingPathComponent("Developer")
+                .appendingPathComponent("XCode")
+                .appendingPathComponent("UserData")
+                .appendingPathComponent("CodeSnippets")
+        }
+    }
+    
+    private var themesURL: URL {
+        get throws {
+            try FileManager.default.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+                .appendingPathComponent("Developer")
+                .appendingPathComponent("XCode")
+                .appendingPathComponent("UserData")
+                .appendingPathComponent("FontAndColorThemes")
+        }
     }
 }

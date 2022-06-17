@@ -9,7 +9,7 @@ import Foundation
 
 final class Presenter {
     
-    weak var viewController: ViewControllerDisplayLogic?
+    weak var viewController: (ViewControllerDisplayLogic & ViewControllerDelegate)?
 
     func presentDerivedDataSize(bytesCount: UInt64) {
         let formattedSize = getFormattedSize(of: bytesCount)
@@ -18,10 +18,25 @@ final class Presenter {
         }
     }
     
+    func presentIOSSimulatorCachesSize(bytesCount: UInt64) {
+        let formattedSize = getFormattedSize(of: bytesCount)
+        DispatchQueue.main.async { [weak viewController] in
+            viewController?.displayIOSSimulatorCachesSize(size: formattedSize)
+        }
+    }
+    
     func presentSupportedDevices(models: [DeviceModel]) {
-        let viewModels: [DeviceViewModel] = models.map {
-            let formattedSize = getFormattedSize(of: $0.size)
-            return DeviceViewModel(id: UUID().uuidString, name: $0.url.lastPathComponent, size: formattedSize)
+        let viewModels: [DeviceViewModel] = models.map { device in
+            let formattedSize = getFormattedSize(of: device.size)
+            return DeviceViewModel(
+                id: UUID().uuidString,
+                name: device.url.lastPathComponent,
+                size: formattedSize,
+                isSelected: device.isSelected,
+                onClick: { [weak viewController] in
+                    viewController?.toggleSelection(device: device)
+                }
+            )
         }
         DispatchQueue.main.async { [weak viewController] in
             viewController?.displaySupportedDevices(viewModels: viewModels)

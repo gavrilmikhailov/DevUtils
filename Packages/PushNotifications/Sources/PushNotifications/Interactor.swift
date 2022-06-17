@@ -81,7 +81,8 @@ final class Interactor {
 }
 
 
-extension String {
+public extension String {
+    
     @discardableResult
     func runAsCommand() -> String? {
         let pipe = Pipe()
@@ -91,7 +92,10 @@ extension String {
         task.standardOutput = pipe
         let file = pipe.fileHandleForReading
         task.launch()
-        let result = NSString(data: file.readDataToEndOfFile(), encoding: Encoding.utf8.rawValue)
+        let result = NSString(
+            data: file.readDataToEndOfFile(),
+            encoding: Encoding.utf8.rawValue
+        )
         return result as? String
     }
 }

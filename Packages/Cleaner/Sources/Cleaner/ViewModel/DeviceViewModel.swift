@@ -9,4 +9,6 @@ struct DeviceViewModel: Identifiable {
     let id: String
     let name: String
     let size: String
+    let isSelected: Bool
+    let onClick: () -> Void
 }

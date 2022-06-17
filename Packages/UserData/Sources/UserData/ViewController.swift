@@ -12,7 +12,7 @@ protocol ViewControllerDisplayLogic: AnyObject {
     func displayUserThemes(viewModels: [ListViewRowViewModel])
     
     func displayUserSnippets(viewModels: [ListViewRowViewModel])
-    
+
     func displayLastUpdateDate(text: String)
 }
 
