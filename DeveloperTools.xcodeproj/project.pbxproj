@@ -7,13 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6D54475B2857823D0010FB97 /* Cleaner in Frameworks */ = {isa = PBXBuildFile; productRef = 6D54475A2857823D0010FB97 /* Cleaner */; };
-		6D54475D285782430010FB97 /* DevToolsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6D54475C285782430010FB97 /* DevToolsCore */; };
-		6D54475F285782430010FB97 /* FirebaseClient in Frameworks */ = {isa = PBXBuildFile; productRef = 6D54475E285782430010FB97 /* FirebaseClient */; };
-		6D544761285782430010FB97 /* JsonPrettifier in Frameworks */ = {isa = PBXBuildFile; productRef = 6D544760285782430010FB97 /* JsonPrettifier */; };
-		6D544763285782430010FB97 /* MarkdownEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 6D544762285782430010FB97 /* MarkdownEditor */; };
-		6D544765285782430010FB97 /* PushNotifications in Frameworks */ = {isa = PBXBuildFile; productRef = 6D544764285782430010FB97 /* PushNotifications */; };
-		6D544767285782430010FB97 /* UserData in Frameworks */ = {isa = PBXBuildFile; productRef = 6D544766285782430010FB97 /* UserData */; };
 		6DEFE53528455176004253BB /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEFE53428455176004253BB /* PreferencesViewController.swift */; };
 		6DEFE53728455196004253BB /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEFE53628455196004253BB /* PreferencesView.swift */; };
 		6DEFE53928455E47004253BB /* PreferencesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEFE53828455E47004253BB /* PreferencesInteractor.swift */; };
@@ -27,17 +20,16 @@
 		6DFCEC042801C2D900D83620 /* HomeControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFCEBFF2801C2D900D83620 /* HomeControlsView.swift */; };
 		6DFCEC052801C2D900D83620 /* HomeTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFCEC012801C2D900D83620 /* HomeTabView.swift */; };
 		6DFCEC062801C2D900D83620 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFCEC022801C2D900D83620 /* HomeViewController.swift */; };
+		92C43B8D289E68AC00455926 /* Cleaner in Frameworks */ = {isa = PBXBuildFile; productRef = 92C43B8C289E68AC00455926 /* Cleaner */; };
+		92C43B8F289E68AF00455926 /* FirebaseClient in Frameworks */ = {isa = PBXBuildFile; productRef = 92C43B8E289E68AF00455926 /* FirebaseClient */; };
+		92C43B91289E68B200455926 /* JsonPrettifier in Frameworks */ = {isa = PBXBuildFile; productRef = 92C43B90289E68B200455926 /* JsonPrettifier */; };
+		92C43B93289E68B500455926 /* MarkdownEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 92C43B92289E68B500455926 /* MarkdownEditor */; };
+		92C43B95289E68B900455926 /* PushNotifications in Frameworks */ = {isa = PBXBuildFile; productRef = 92C43B94289E68B900455926 /* PushNotifications */; };
+		92C43B97289E68BC00455926 /* UserData in Frameworks */ = {isa = PBXBuildFile; productRef = 92C43B96289E68BC00455926 /* UserData */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6D1B6C50284375810003EE4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		6D544753285781A10010FB97 /* Cleaner */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Cleaner; path = Packages/Cleaner; sourceTree = "<group>"; };
-		6D544754285781AA0010FB97 /* DevToolsCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DevToolsCore; path = Packages/DevToolsCore; sourceTree = "<group>"; };
-		6D544755285781B40010FB97 /* FirebaseClient */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FirebaseClient; path = Packages/FirebaseClient; sourceTree = "<group>"; };
-		6D544756285781BD0010FB97 /* JsonPrettifier */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = JsonPrettifier; path = Packages/JsonPrettifier; sourceTree = "<group>"; };
-		6D544757285781C70010FB97 /* MarkdownEditor */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MarkdownEditor; path = Packages/MarkdownEditor; sourceTree = "<group>"; };
-		6D544758285781D10010FB97 /* PushNotifications */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PushNotifications; path = Packages/PushNotifications; sourceTree = "<group>"; };
-		6D544759285781DA0010FB97 /* UserData */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = UserData; path = Packages/UserData; sourceTree = "<group>"; };
 		6DEFE53428455176004253BB /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		6DEFE53628455196004253BB /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		6DEFE53828455E47004253BB /* PreferencesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesInteractor.swift; sourceTree = "<group>"; };
@@ -53,6 +45,13 @@
 		6DFCEBFF2801C2D900D83620 /* HomeControlsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeControlsView.swift; sourceTree = "<group>"; };
 		6DFCEC012801C2D900D83620 /* HomeTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabView.swift; sourceTree = "<group>"; };
 		6DFCEC022801C2D900D83620 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		92C43B84289E644B00455926 /* Cleaner */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Cleaner; path = Packages/Cleaner; sourceTree = "<group>"; };
+		92C43B85289E645400455926 /* DevToolsCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DevToolsCore; path = Packages/DevToolsCore; sourceTree = "<group>"; };
+		92C43B86289E645C00455926 /* FirebaseClient */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FirebaseClient; path = Packages/FirebaseClient; sourceTree = "<group>"; };
+		92C43B87289E646400455926 /* JsonPrettifier */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = JsonPrettifier; path = Packages/JsonPrettifier; sourceTree = "<group>"; };
+		92C43B88289E646C00455926 /* MarkdownEditor */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MarkdownEditor; path = Packages/MarkdownEditor; sourceTree = "<group>"; };
+		92C43B89289E647400455926 /* PushNotifications */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PushNotifications; path = Packages/PushNotifications; sourceTree = "<group>"; };
+		92C43B8A289E647D00455926 /* UserData */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = UserData; path = Packages/UserData; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,13 +59,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D54475B2857823D0010FB97 /* Cleaner in Frameworks */,
-				6D544765285782430010FB97 /* PushNotifications in Frameworks */,
-				6D544763285782430010FB97 /* MarkdownEditor in Frameworks */,
-				6D54475F285782430010FB97 /* FirebaseClient in Frameworks */,
-				6D544761285782430010FB97 /* JsonPrettifier in Frameworks */,
-				6D544767285782430010FB97 /* UserData in Frameworks */,
-				6D54475D285782430010FB97 /* DevToolsCore in Frameworks */,
+				92C43B93289E68B500455926 /* MarkdownEditor in Frameworks */,
+				92C43B97289E68BC00455926 /* UserData in Frameworks */,
+				92C43B95289E68B900455926 /* PushNotifications in Frameworks */,
+				92C43B8F289E68AF00455926 /* FirebaseClient in Frameworks */,
+				92C43B91289E68B200455926 /* JsonPrettifier in Frameworks */,
+				92C43B8D289E68AC00455926 /* Cleaner in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,13 +162,13 @@
 		6DFCEC072801C2E500D83620 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				6D544753285781A10010FB97 /* Cleaner */,
-				6D544754285781AA0010FB97 /* DevToolsCore */,
-				6D544755285781B40010FB97 /* FirebaseClient */,
-				6D544756285781BD0010FB97 /* JsonPrettifier */,
-				6D544757285781C70010FB97 /* MarkdownEditor */,
-				6D544758285781D10010FB97 /* PushNotifications */,
-				6D544759285781DA0010FB97 /* UserData */,
+				92C43B84289E644B00455926 /* Cleaner */,
+				92C43B85289E645400455926 /* DevToolsCore */,
+				92C43B86289E645C00455926 /* FirebaseClient */,
+				92C43B87289E646400455926 /* JsonPrettifier */,
+				92C43B88289E646C00455926 /* MarkdownEditor */,
+				92C43B89289E647400455926 /* PushNotifications */,
+				92C43B8A289E647D00455926 /* UserData */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -199,13 +197,12 @@
 			);
 			name = DeveloperTools;
 			packageProductDependencies = (
-				6D54475A2857823D0010FB97 /* Cleaner */,
-				6D54475C285782430010FB97 /* DevToolsCore */,
-				6D54475E285782430010FB97 /* FirebaseClient */,
-				6D544760285782430010FB97 /* JsonPrettifier */,
-				6D544762285782430010FB97 /* MarkdownEditor */,
-				6D544764285782430010FB97 /* PushNotifications */,
-				6D544766285782430010FB97 /* UserData */,
+				92C43B8C289E68AC00455926 /* Cleaner */,
+				92C43B8E289E68AF00455926 /* FirebaseClient */,
+				92C43B90289E68B200455926 /* JsonPrettifier */,
+				92C43B92289E68B500455926 /* MarkdownEditor */,
+				92C43B94289E68B900455926 /* PushNotifications */,
+				92C43B96289E68BC00455926 /* UserData */,
 			);
 			productName = DeveloperTools;
 			productReference = 6DFCEBEA2801C18B00D83620 /* DeveloperTools.app */;
@@ -415,7 +412,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = RTC3LMZ968;
+				DEVELOPMENT_TEAM = 6PWFL227LZ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DeveloperTools/Info.plist;
@@ -446,7 +443,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = RTC3LMZ968;
+				DEVELOPMENT_TEAM = 6PWFL227LZ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DeveloperTools/Info.plist;
@@ -490,31 +487,27 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6D54475A2857823D0010FB97 /* Cleaner */ = {
+		92C43B8C289E68AC00455926 /* Cleaner */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Cleaner;
 		};
-		6D54475C285782430010FB97 /* DevToolsCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DevToolsCore;
-		};
-		6D54475E285782430010FB97 /* FirebaseClient */ = {
+		92C43B8E289E68AF00455926 /* FirebaseClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FirebaseClient;
 		};
-		6D544760285782430010FB97 /* JsonPrettifier */ = {
+		92C43B90289E68B200455926 /* JsonPrettifier */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = JsonPrettifier;
 		};
-		6D544762285782430010FB97 /* MarkdownEditor */ = {
+		92C43B92289E68B500455926 /* MarkdownEditor */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MarkdownEditor;
 		};
-		6D544764285782430010FB97 /* PushNotifications */ = {
+		92C43B94289E68B900455926 /* PushNotifications */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PushNotifications;
 		};
-		6D544766285782430010FB97 /* UserData */ = {
+		92C43B96289E68BC00455926 /* UserData */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UserData;
 		};
